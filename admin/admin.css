@@ -1,0 +1,172 @@
+    table, tr, td, div, body {
+        margin:     0;
+        padding:        0;
+        border:     0;
+    }
+
+    td {
+        vertical-align:     top;
+    }
+    .header {
+    }
+    .header a {
+	padding: 5px;
+	margin-bottom: 2px;
+	color: #000055;
+	background: #F0F0F0;
+	font-weight: bold;
+	border: 1px solid #C0C0C0;
+	text-decoration: none;
+    }
+    .header a:hover {
+	border: 1px #007000 solid; 
+	background: #FDD;
+    }
+    
+    .error {
+	color: red;
+	font-weight: bold;
+    }
+    
+    .group {
+	background: grey;
+    }
+
+    .source {
+	background: #FFEFD5;
+	margin: 3px;
+    }
+    
+    .list {
+	background: #FF855B;
+    }
+    
+    .logtable td, .logtable th {
+	border: 1px solid black;
+    }
+    
+    .logtable th {
+	background: gray;
+    }
+
+    .logtable a:not(:hover) {
+	text-decoration: none;
+	color: black;
+    }
+    
+    .loginfo th {
+	padding-right: 25px;
+    }
+
+
+    .adm_downloads h1 {
+  text-align: center;
+  font-family: Arial, Verdana;
+  font-weight:bold;
+  color:#000055; 
+  font-size:16pt; 
+  margin: 3px;
+  margin-bottom: 20px;
+}
+
+.adm_downloads table {
+    width: 100%;
+}
+
+.adm_downloads td {
+    text-align: center;
+    border: 1px solid black;
+}
+
+.adm_downloads th {
+    text-align: center;
+    padding:    1px 4px 1px 4px;
+    background: lightgray;
+    border: 1px solid black;
+}
+
+.downloadData table {
+  border-style: none;
+ 
+}
+
+.downloadData td {
+  border-width: 0px;
+  padding-left: 5px; 
+  text-align: left;
+/*  float: left;*/
+} 
+
+.progress_container {
+  border:4px double #CCCCCC;
+  margin-top:3px;
+  margin-bottom:3px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 120px;
+  padding:0;
+}
+
+.progressReady {
+  background-color:#4CBB17;
+  color:#FFFFFF;
+  font-size:12px;
+  height:12px;
+  line-height:1.2em;
+  overflow:hidden;
+  padding-bottom:2px;
+  text-align:center;
+  width: 100%;
+}
+
+.progressQueue {
+  background-color:#FFFFFF;
+  font-size:12px;
+  height:12px;
+  line-height:1.2em;
+  overflow:hidden;
+  padding-bottom:2px;
+  text-align:center;
+  width: 100%;
+}
+
+.buttoncontainer {
+  /*position: static;*/
+  width:99px;
+  height:26px;
+}
+
+.buttoncontainer table tr td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.deleteimg {
+  background-image:url('../images/remove.png');
+  background-repeat:no-repeat;
+  margin-top:5px;
+  width:19px;
+  height:19px;
+/*  float:right;
+  clear: right;*/
+}
+    
+
+.downloads_panel {
+    margin-top: 18px;
+}
+
+.controls {
+    padding: 0;
+}
+
+.controls td{
+    border: 0;
+    text-align: right;
+    padding: 0;
+}
+
+.controls .deleteimg {
+    float: right;
+}

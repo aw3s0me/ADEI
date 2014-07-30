@@ -1,0 +1,11 @@
+Known problems
+==============
+ - MySQL (at least 5.0.45, 5.0.51) has problems with queries dealing with
+ huge rowset. After certain threshold (involving around 500,000 rows) the
+ optimizator stop using INDEXes.
+    * You can check if it is actually happening with 'EXPLAIN <query>' command,
+    * To force usage of indexes it is possible to add "FORCE INDEX (PRIMARY)"
+    keyword after table name in SELECT query.
+    * The $MYSQL_FORCE_INDEXES configuration option is forces usage of indexes 
+    when necesary and is intended to fix the described behaviour.
+

@@ -1,0 +1,149 @@
+AJAX Variables
+==============
+
+Web Interface
+-------------
+ + minimal		- Operates in minimal mode, several modes are supported
+			    graph	- just graph, nothing else
+			    wiki 	- graph, wiki, header, menu
+			    search	- graph, search, menu
+			    nosource	- everything beside source and srctree
+			    nomenu	- sidebar and menu disabled
+
+ + module		- Specifies module to open
+
+Global
+------
+ + setup		- specifies custom setup
+
+Services
+--------
+ + service 		- name of the requested service
+ + target		- request target for multipurpose services (like 'list')
+
+Data Source
+-----------
+ + db_server
+ + db_name
+ + db_group
+ + db_mask
+
+Control
+------- 
+ + control_group
+ + control_mask
+ 
+ + control_values		- 0,0,0,0,0 (control_mask is considered)
+ + control_set			- TSX500=0.1,TMN432=0.5
+ + control_check		- TSX500<0.1,TMN432>=0.3
+ + control_id_<num>		- control_id_0=0.3 (prohibiting the mask usage)
+ + control_uid_<name>		- control_uid_TSX500=0.3
+ 
+Data Window
+-----------
+ + experiment		from-to; -to; 
+			from-; -(default)		limited by data
+			from-*; *-*			limited by cur. time
+			
+ + window		from-to[,-last_items];  from-; -to; -
+			last_seconds[,-last_items]
+			0[,-last_items]				everything
+			from+width, to-width [not implemented yet]
+Virtual Groups
+---------------
+ + virtual		- defines control variable for current virtual control,
+			defaults to 'srctree'
+ + srctree		- list of items composing virtual group. The list is
+			comma separated each item could be represnted:
+			    a) autogen__minutely__default__6
+			    b) autogen__minutely__default(3,4,5)   - multiple
+			    c) RTP1020				   - by uid
+List Service
+------------
+ + list_virtual		- Allows listing of virtual elements (virtual sources)
+ + list_complex		- Allows listing of complex elements (joint groups)
+ + skip_uncached	- Prevent uncached elements from being listed
+	
+Axis
+----
+ + axis			- default axis, "0" if not specified
+ + axis_name
+ + axis_units
+ + axis_mode		- log
+ + axis_range		- from:to, auto-adapting by default
+ 
+ + temperature_axis_*	- supplying multiple named axes
+ + axis<num>_*		- enumerated axes
+
+Export
+------
+ + format
+ + mask_mode		- STANDARD,GROUP,SOURCE,COMPLETE
+ + resample
+ + filename
+ + download 		- unique ID given for each download
+
+ + cache                - get data from cache, if number is given use the specified cache 
+                        level (cache=3600, not supported yet)
+                        
+ + filter (?)           - planned, additional filters to apply
+ + aggregator		- planned, should specify which king of data we want
+			    RAW 	- data from READER's [default]
+			    CACHE	- data from CACHE, cache0
+			    MEAN, SUM	- aggregated data from caching tables
+					resample will set aggregation duration
+
+
+Alarms
+------
+ + severity		- Alarm severity
+ + limit		- Limits number of items to return
+ + alarm_mask		- Limits processed alarms
+ 
+Search
+------
+ + search		- search string, in the following forms:
+			a) search keywords
+			b) module1: search keywords module2: search keywords
+			Keyword processing is module based, the default approach
+			is basing on ratings [0-1]. 			
+			Search keywords are (phrase# is rating of phrase #)
+			    !phrase = 1 - pharse
+			    -phrase = (phrase==0)?1:0
+			    +phrase = (phrase==1)?1:0
+			    
+			    word1 word2 "phrase 1"
+			    word1 || word2
+			    word1 && word2
+			    !word
+			
+ + search_modules	- module(opts),module(opts) search modules
+ 
+Graph Options
+-------------
+ + resolution           - [integer]
+ + aggregation		- AUTO/MINMAX/MEAN
+ + filter               - AUTO/..
+ + render               - AUTO/STD/STACKED/...
+ + interpolate		- [boolean]
+ + show_marks		- DRAW::MARKS_[NEVER,DEFAULT,GAPS,ALWAYS]
+ + show_gaps		- DRAW::SHOW_[NONE, EMPTY, POINTS, GAPS]
+			    EMPTY  - display all points on the graph [ if empty existing ]
+			    POINTS - display all points on the graph
+			    GAPS   - display missing data
+ + precision		- DRAW::PRECISION_[DEFAULT,LOW,HIGH], number specifying pixel density
+ + hide_axes		- produces axis-less graph ('Y' - hide only Y-axes)
+ 
+ + width		- in pixels
+ + height		- in pixels
+ 
+ 
+WiKi
+----
+ + pageid		- WiKi page id
+
+Other
+-----
+ + encoding		- XML/JSON/WS
+ + time_format		- unix/iso/text
+ 

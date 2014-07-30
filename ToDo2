@@ -1,0 +1,68 @@
+ADEI2
+=====
+ 1. Improve extensibility: It should be possible to add new features as 
+ independent modules without messing with existing code. And this modules should
+ not be able to break functionality of other modules. A lot of stuff is done by 
+ students and it's important they can break other things. 
+ Additionally:
+ - Current JS frontend is ugly and it is really horrible to extend it in any way.
+ Complete rewrite, drop of compatibility with non-standard complaint browsers, 
+ and latest web toolkits should simplify development drastically.
+ 
+ 2. Improve customizability: The ADEI layout should be based on some 
+ templating/WiKi engine. All this small things Ashots asks you to change in 
+ ADEI. Remove line here, change label there. For each experiment, we should 
+ be able to easily configure the layout. The same functionality will help to 
+ adjust ADEI representation to various devices with different screen sizes 
+ and input abilities: smartphones, pads, laptops, big visualization stations.
+
+ 3. Introduce custom visualization modes: Simplify treatment of multi-dimensional
+ time series represented in variety of formats and requiring different modes of 
+ visualization. Basically, instead of just a single dynamic application "Graph" 
+ we have now, it should be possible to implement "Visualization Applications" 
+ within ADEI (modules) and place them in the desired place (templates). Because
+ of significant increase in data amount, for this we will extensively use the 
+ following features and should re-implement them in significantly simpler 
+ to use manner:
+ - Custom (per-view) caches. Some kind of ORM should be introduced for 
+ performance non-critical caches.
+ - C-plugins. Ruby is much simpler to mix with C than PHP. But also some 
+ code may be moved to database server. For this reason, migration to PostgreSQL 
+ may be desirable.
+ 
+ 4. Enhance Collaborative Analysis: tagging, wiki, etc.
+ 
+
+Architecture
+============
+ - Template engine (CMS?) + WiKi + Tickets + eLog + Data Views
+ - Мы будем делать шаблоны в WiKi, WiKi сделаем динамическим через прокси. Но
+ само WiKi должно быть динамическим: растягиваться в лево и право, etc. Вообщем,
+ ExtJS based.
+
+
+Technicalities
+===============
+ - Current ADEI is relaying on GET string to save state. It is quite convenient, 
+ but already the string grown to large. We need a new approach. 
+
+ - Use "nanoseconds since" instead current quite strange system with number-string 
+ timing?
+
+ - Support for Local Time. Major obstacle is synchronization between php (jpgraph)
+ and browsers. Just using timezone offset doesn't allow us to find out DST changes 
+ and etc. In Mozilla and Safari, however, there is tricky way of obtaining time-zone.
+      var now = new Date();
+      now.toString();
+ will return the lexcial name of time-zone (however, the names could differ between 
+ php and JS?). It is possible to extract this time zone info and pass to php. From, 
+ other side Opera and IE7 returns just numerical representation of offset GMT+, 
+ without real name. And there is no any warranty on toString() format change.
+
+ - We have a set of electronics used for testing some kind of equipment, i.e.
+ TOSKA coils, battaries. Generally, in this case we are interested not in 
+ absolute time, but in time since the start of the test (experiment).
+ As well, the test is some times repeated, for example to check the degradation
+ of battery over the time. In this case we will be interested in comparing
+ multiple tests directly. If we should substract start time, should be 
+ encapsulated into the experiment.

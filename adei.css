@@ -1,0 +1,944 @@
+html, body {
+    overflow:		hidden;
+/*    
+    This will broke resizing of graph in IE6 (IE7 - OK), but absense of
+    it brokes legend popups everythere. Moving to '.all' looks to solve
+    all problems.
+
+    width:		100%;
+*/
+}
+
+.all {
+    width:		100%;
+}
+
+
+table, tr, td, div, body {
+    margin:		0;
+    padding:		0;
+    border:		0;
+}
+
+td {
+    vertical-align: 	top;
+}
+
+.all {
+    height: 		100%; 
+    width:		100%;
+    margin: 		0px; 
+    padding: 		0px;
+}
+
+.header {
+   color: 		#000055;
+   background: 		#E0E0E0;
+   border: 		1px solid #C0C0C0;
+   margin-top: 		0;
+/*   margin-bottom:	5px;*/
+   margin-bottom:	1px;
+   margin-left: 	2px;
+   margin-right: 	2px;
+   padding: 		5px;
+   height:		50px;
+}
+
+.header table {
+    height:		100%;
+/*    padding:		3px;*/
+}
+
+/*
+.header table, .header tr, .header td {
+    border: 1px solid black;
+}
+*/
+
+.header .title {
+   font-weight: 	bold;
+   text-align:		left;
+   padding-left:	50px;
+   vertical-align:	middle;
+}
+
+.header .title td {
+    vertical-align:	top;
+}
+
+.header .title b {
+    font-size: 		20pt; 
+    letter-spacing: 	6px;
+}
+
+.header .title i {
+  font-size: 		10pt; 
+  letter-spacing: 	6px;
+  font-style:		normal;
+}
+
+
+.header .right {
+    vertical-align:	bottom;
+    height: 		100%;
+}
+
+.header .search {
+    text-align:		right;
+    vertical-align:	top;
+    position:		absolute;
+    top:		2px;
+    right:		5px;
+}
+
+.header .search input {
+    background:	#FFFCBA;
+    font-size:  12px; 
+    width:	400px;
+}
+
+.header .links {
+    text-align: 	right;
+    margin-right:	3px;
+    
+/*    margin-top: 25px;*/
+/* Doing a little smaller to fit search box */
+    font-family: 	Arial, Verdana;
+    font-size: 		17px; 
+}
+
+/* Next two, fixing IE7 */
+.header .links table {
+    margin: 		0; 
+    padding: 		0;
+    border:		0;
+}
+.header .links table td {
+    vertical-align: bottom;
+    text-align: right;
+}
+
+
+.statusbar {
+    height: 20px;
+/*    font-family: 	Arial, Verdana;*/
+    font-size: 		15px;
+    background: #FFEEF1;
+    border: 1px solid gray;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 1;		/* We need that for Opera */
+}
+
+/* 
+    This is needed for IE6, otherwise the statusbar have invalid width 
+*/
+.statusbar div {
+    width: 100%;
+}
+
+/*
+.sidebar {
+    margin-top:	10px;
+}
+*/
+
+#main_sidebar div+div {
+    margin-top:	10px;
+}
+
+
+.sidebar .holder {
+    border:	1px solid black;
+    padding: 	0px;
+    margin:	0px;
+}
+
+.sidebar .switch {
+    padding:	1px;
+    margin:	0px;
+    border:	0px;
+}
+
+.sidebar .switch button {
+  padding: 0px;
+  margin: 0px;
+  display: block;
+  border: 1px solid #C0C0C0;
+  color: #000055;
+  background: #F0F0F0;
+  text-decoration: none;
+  /* min-width: 20px; causin artefacts in IE and Opera */
+  /* width: 25px;*/
+}
+
+.sidebar .switch button:hover {
+  border: 1px #007000 solid;
+  background: #F0E0E0;
+}
+
+.sidebar .switch table td {
+    vertical-align: middle;
+}
+
+
+/*
+Causes problems to IE
+.sidebar .switch div:first-letter, .header .links div:first-letter {
+    text-transform:	uppercase;
+}
+*/
+
+#main_sidebar_controls .controls {
+    overflow: auto;
+/*
+    Strangely working as expected only in IE
+    
+    overflow-y: auto;
+    overflow-x: visible;
+
+    height: 300px;
+*/
+/*    height: 421px;*/
+}
+
+#main_sidebar_source .controls {
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#module_source_axes {
+    max-height: 230px;
+/*    overflow-y: scroll;
+    overflow-x: hidden;*/
+}
+
+.controls, .controls table {
+    width: 100%;
+}
+
+/*
+.controls table td {
+    border: 1px solid black;
+}
+*/
+
+.select_table td+td {
+    text-align: right;
+}
+
+
+.module {
+    /* For detection of min-height property support */
+    min-width: 10px;
+    min-height: 10px;
+    
+    /*border: solid black 1px; debugging*/
+}
+
+.module_link, .module_link_current {
+    text-decoration: 	none;
+}
+
+.module_link {
+    color:		blue;
+}
+
+.module_link_current {
+    color:		#32ad32;
+}
+
+.popup {
+    /*min-width: 300px;	ignored by IE, bug in Opera */
+    /*width: 350px; prevents auto-resizing of axes */
+    min-width: 350px;
+    min-width: 10px;
+    min-height: 10px;
+}
+
+.popup {
+    border-right: 3px solid rgba(32,112,32,1);
+    padding-right: 2px;
+/*    border-right: 3px solid rgba(32,80,32,0);*/
+}
+
+.module_source_link, .module_source_link_current {
+    background: 	#E0E0E0;
+}
+.module_source_link a, .module_source_link_current a {
+    text-decoration: 	none;
+}
+.module_source_link a {
+    color:		blue;
+}
+.module_source_link_current a {
+    color:		#32ad32;
+}
+.module_source_link_current a:before {
+    content: 		"{";
+}
+.module_source_link_current a:after {
+    content: 		"}";
+}
+
+.module_controls_link, .module_controls_link_current {
+    background: 	#E0E0E0;
+    padding-left:	5px;
+    padding-right:	5px;
+    text-align:		center;
+}
+.module_controls_link a, .module_controls_link_current a {
+    text-decoration: 	none;
+}
+.module_controls_link a {
+    color:		blue;
+}
+.module_controls_link_current a {
+    color:		#32ad32;
+}
+.module_controls_link_current a:before {
+    content: 		"{";
+}
+.module_controls_link_current a:after {
+    content: 		"}";
+}
+
+.sidebar .controls table td {
+    padding-right:	5px;
+}
+
+#module_export select, #module_aggregator select, #module_source_source select {
+    width:		200px;
+}
+
+#module_source_time select {
+    width:		150px;
+}
+
+/* causes proble in gecko */
+#source_db_item_tr select {
+    width:		100%;
+}
+
+#source_db_item_tr td {
+    text-align: right;
+}
+
+
+#source_timestart input, #source_timeend input, #source_winstart input, #source_winend input {
+    width:		124px;
+}
+
+#source_timestart img, #source_timeend img, #source_winstart img, #source_winend img {
+    border:		0px;
+    padding:		0px;
+    margin:		0px;
+    width:		16px;
+    height:		16px;
+    vertical-align:	middle;
+}
+
+#source_axes_table td {
+    margin: 0px;
+    padding: 0px;
+}
+
+#source_axes_table .axis_name {
+    font-weight: bold;
+}
+
+.source_yrange input {
+    width:		64px;
+}
+
+#source_yopts input {
+    width:		128px;
+}
+
+.source_apply td {
+    text-align:		center;
+}
+
+.source_apply button {
+    width:		90%;
+    margin-top:		5px;
+    margin-bottom:	5px;
+}
+
+
+.export_apply td {
+    text-align:		center;
+}
+
+.export_apply button {
+    width:		90%;
+    margin-top:		5px;
+    margin-bottom:	5px;
+}
+
+
+.hide_source_control {
+    display:		none;
+}
+
+.hide_source_history {
+    display:		inline;
+}
+
+.hide_experiment_custom {
+    display:		none;
+}
+
+.hide_window_custom {
+    display:		none;
+}
+
+.header .links {
+/*    display: inline;*/
+}
+
+.menu_button {
+    margin-left: 	5px;
+
+    width: 0px;	/* needed by IE6 */
+/*
+    width: 		25px;
+    height:		25px;
+*/    
+    display:		inline;
+    position:		absolute;
+    left:		0px;
+
+/*
+    The positioning of submenus with 'position: absolute' is broken in
+    dhtmlxmenu. The hack below is to handle that 
+    top:		0px;
+    padding-top:	20px;
+*/
+    top:		20px;
+/*
+    please see z-index handling in menu.js, needed only for IE
+*/
+}
+
+.selector {
+    background:		white;
+    border:		1px solid black;
+    margin-right:	1px;
+/*    margin-bottom:	5px;*/
+}
+
+.graph {
+    width:		100%;
+}
+
+.dialog {
+	position: absolute;
+	background-color: #c0c0c0;
+	border-color: #f0f0f0 #606060 #404040 #d0d0d0;
+	border-style: solid;
+	border-width: 2px;
+	
+	margin: 0px; /* 5px */
+	padding: 2px;
+	cursor: pointer;
+	z-index: 500;
+}
+
+.dialog .close {
+    cursor: default;
+    margin: 2px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    background: url(images/close.png) no-repeat;
+}
+
+.dialog .maximize {
+    cursor: default;
+    margin: 2px;
+    left: 24px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    background: url(images/maximize.png) no-repeat;
+}
+
+.dialog .restore {
+    cursor: default;
+    margin: 2px;
+    left: 24px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    background: url(images/restore.png) no-repeat;
+}
+
+
+.dialog .titlebar {
+    /***
+      * IE6 would consider width: 100% (for auto) if we specify height)
+      *
+    height:		21px; 
+    */
+    min-height:		21px;
+    max-height:		21px;
+    background-color: 	#008080;
+    cursor: 		default;
+    margin: 		0px;
+    padding: 		2px 2px 2px .5em;
+    overflow:		hidden;
+}
+
+
+.dialog .titlebar span {
+    color: 		#ffffff;
+    font-family:	"MS Sans Serif", "Arial", "Helvetica", sans-serif;
+    font-size: 		12pt;
+    font-weight: 	bold;
+    text-align: 	left;
+    white-space: 	nowrap;
+    padding:		45px;
+    width:		100%;
+    vertical-align:	center;
+}
+
+.dialog .content {
+    cursor: 		default;
+    background-color:	#ffffff;
+    border-color: 	#404040 #e0e0e0 #f0f0f0 #505050;
+    border-style: 	solid;
+    border-width: 	2px;
+    margin: 		2px 0px 0px 0px;
+    padding: 		.5em;
+    font-size:		medium;	/* required by IE7 */
+/*	overflow: hidden;*/
+	overflow: auto;
+}
+
+.dialog iframe {
+    display:none;/*sorry for IE5*/
+    display/**/:block;/*sorry for IE5*/
+    position:absolute;/*must have*/
+    top:0;/*must have*/
+    left:0;/*must have*/
+    z-index:-1;/*must have*/
+    filter:mask();/*must have*/
+    width: 100%;/*must have for any big value*/
+    height: 100%;/*must have for any big value*/
+}
+
+#legend .content p {
+  margin: 3px 5px 3px 5px;
+}
+
+#legend .content td, .legend .content th {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+
+.navigation, .minipc
+{ 
+  font-family: Arial, Verdana;
+  font-size: 10pt; 
+  font-weight: normal;
+  vertical-align: middle;
+  background: white;
+  text-decoration: none;
+  white-space: nowrap;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.navigation a
+{
+  font-weight: normal;
+  padding: 2px;
+  margin-bottom: 2px;
+  display: block;
+  color: #000055;
+  background: #F0F0F0;
+  font-weight: bold;
+  border: 1px solid #C0C0C0;
+  text-decoration: none;
+}
+
+.navigation a:hover
+{
+  border: 1px #007000 solid; 
+}
+
+
+.linkbutton
+{ 
+    text-align: center;
+}
+
+.linkbutton a
+{
+  border: 3px #F0B0B0 solid; 
+}
+
+.linkbutton a:hover
+{
+  border: 3px #F00000 solid; 
+}
+
+
+
+.highlight {
+  color: #BB0000;
+}
+
+.highlight a {
+  color: #BB0000;
+}
+
+.lowlight {
+  color: #771111;
+}
+
+.lowlight a {
+  color: #771111;
+}
+
+.tools_text {
+height:10px;
+text-align:center;
+font-size:10pt; 
+}
+/*
+.info {
+  padding: 10px;
+  vertical-align: top;
+  background: #BFFFBF;
+  border: 1px solid #00C000;
+  margin: 10px;
+  font-size:14pt; 
+  line-height: 1.5;
+}
+
+
+.error {
+  padding: 10px;
+  vertical-align: top;
+  background: pink;
+  border: 1px solid #00C000;
+  margin: 10px;
+  font-size:14pt; 
+  line-height: 1.5;
+}
+*/
+
+.info h1, .error h1 {
+  font-family: Arial, Verdana;
+  font-weight:bold;
+  color:#000055; 
+  font-size:16pt; 
+  margin: 3px;
+  margin-bottom: 20px;
+}
+
+.groups {
+  padding: 10px;
+  vertical-align: top;
+/*  background: #E0E0E0;
+  border: 1px solid #C0C0C0;*/
+}
+
+.group {
+  padding: 10px;
+  vertical-align: top;
+  background: #E0E0E0;
+  border: 1px solid #00C000;
+  margin: 10px;
+  width: 45%;
+}
+
+.group form {
+  margin: 0px;
+  padding: 0px;
+}
+
+.group h1 {
+  font-family: Arial, Verdana;
+  font-weight:bold;
+  color:#000055; 
+  font-size:14pt; 
+  margin: 3px;
+  margin-bottom: 5px;
+}
+
+.group .good {
+  color: green;
+  font-weight: bold;
+}
+
+.group .bad {
+  color: red;
+  font-weight: bold;
+}
+
+
+.xml_module, .wiki {
+    overflow: auto;
+}
+
+.xml_module .error {
+   color: red;
+}
+
+.xml_module h1 {
+  text-align: center;
+  font-family: Arial, Verdana;
+  font-weight:bold;
+  color:#000055; 
+  font-size:16pt; 
+  margin: 3px;
+  margin-bottom: 20px;
+}
+
+.xml_module table {
+    width: 100%;
+}
+
+.xml_module td {
+    text-align: center;
+    padding:	1px 4px 1px 4px;
+    border: 1px solid black;
+}
+
+.xml_module th {
+    text-align: center;
+    padding:	1px 4px 1px 4px;
+    background: lightgray;
+    border: 1px solid black;
+}
+
+.wiki {
+    margin: 10px;
+}
+
+.wiki .wiki_header {
+/*    text-align: center;*/
+    /*font-size: 18px; */
+    font-weight:bold; 
+    margin-bottom: 18px; 
+    margin-top: 0px;
+}
+
+.wiki .wiki_header2{
+/*  font-size: 12px; */
+  font-weight:bold; 
+  margin-bottom: 12px; 
+  margin-top: 0px;
+}
+
+
+.progress_container {
+  border:4px double #CCCCCC;
+  margin-top:3px;
+  margin-bottom:3px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 120px;
+  padding:0;
+}
+
+.progress {
+  background-color:#FF8D40;
+  color:#FFFFFF;
+  font-size:12px;
+  height:12px;
+  line-height:1.2em;
+  overflow:hidden;
+  padding-bottom:2px;
+  text-align:center;
+}
+
+.progressReady {
+  background-color:#4CBB17;
+  color:#FFFFFF;
+  font-size:12px;
+  height:12px;
+  line-height:1.2em;
+  overflow:hidden;
+  padding-bottom:2px;
+  text-align:center;
+  width: 100%;
+}
+
+.progressQueue {
+  background-color:#FFFFFF;
+  font-size:12px;
+  height:12px;
+  line-height:1.2em;
+  overflow:hidden;
+  padding-bottom:2px;
+  text-align:center;
+  width: 100%;
+}
+
+.dlerror {
+  background-color:red;
+  height:14px;
+  width:100%;
+}
+
+.previewimg {
+  background-image:url('images/box.png');
+  background-repeat:no-repeat;
+  margin-top:5px;
+  clear: left;
+  float: left;
+  width:19px;
+  height:19px;
+}
+
+.infoimg {
+  background-image:url('images/icon_info.png');
+  background-repeat:no-repeat;
+  margin-top:5px;
+  float: right;
+  clear: right;
+  width:19px;
+  height:19px;
+}
+
+.deleteimg {
+  background-image:url('images/remove.png');
+  background-repeat:no-repeat;
+  margin-top:5px;
+  width:19px;
+  height:19px;
+/*  float:right;
+  clear: right;*/
+}
+
+.downloadimg {
+  background-image:url('images/icon_download.png');
+  background-repeat:no-repeat;
+  margin-top:5px;
+  height:19px;
+  width:19px;
+/*  float:left;
+  clear: left;*/
+}
+
+.dlsort {
+  background-image:url('images/arrow_up.png');
+  background-repeat:no-repeat;
+  margin-top:5px;
+  height:16px;
+  width:20px;
+  /*position: static;*/
+  width:99px;
+  height:26px;
+
+/*  float:left;*/
+  margin-bottom:5px;
+}
+
+.dlsort_down {
+  background-image:url('images/arrow_down.png');
+  background-repeat:no-repeat;
+  margin-top:5px;
+  height:16px;
+  width:20px;
+/*  float:left;*/
+  margin-bottom:5px;
+}
+
+.dl_user {
+  width:90%;
+/*  float:right;*/
+}
+
+.buttoncontainer {
+  /*position: static;*/
+  width:99px;
+  height:26px;
+}
+
+.buttoncontainer table tr td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+/*
+.buttoncontainerright {
+  float:right;
+  width:45px;
+}
+
+.buttoncontainerleft {
+  float:left;
+  width:45px;
+}
+*/
+
+.downloadData table {
+  border-style: none;
+ 
+}
+
+.downloadData td {
+  border-width: 0px;
+  padding-left: 5px; 
+  text-align: left;
+/*  float: left;*/
+} 
+/*
+#main_div {
+    background: blue;
+}
+#module_graph {
+    background: green;
+}
+#graph_image_div {
+    background: red;
+}
+*/
+
+
+
+.imgCrop_button_runs {
+	position: absolute;
+	background: url(images/run_button.png);
+	border: green solid 1px;
+	width: 19px;
+	height: 20px;
+	margin: 5px;
+	cursor: pointer;
+	z-index: 5;
+}
+
+.imgCrop_button_info {
+	position: absolute;
+	background: url(images/info.png);
+	background-color: white;
+	border: green solid 1px;
+	width: 19px;
+	height: 20px;
+	margin: 5px;
+	cursor: pointer;
+	z-index: 5;
+}
+
+#infotab_mod_sel {
+    width: 200px;
+}
+
+#infotab_reload_button {
+    background: url(images/refresh.png);
+    background-position: center top;
+    background-repeat: no-repeat;
+}

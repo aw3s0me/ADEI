@@ -1,0 +1,10 @@
+Gecko (Seamonkey, Firefox)
+mousewheel.withcontrolkey.action = 0
+mousewheel.withshiftkey.action = 0
+mousewheel.withnokey.action = 0 (should be by default)
+mousewheel.withaltkey.action = 0
+
+alt is meta. In Windwos "Alt" key, in Linux sometimes "Win" or other
+depending on configuration
+
+

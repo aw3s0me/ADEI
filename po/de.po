@@ -1,0 +1,723 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ADEI 0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-07 22:53+0100\n"
+"PO-Revision-Date: 2012-02-07 18:22+0100\n"
+"Last-Translator: Suren A. Chilingaryan <csa@dside.dyndns.org>\n"
+"Language-Team: non\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../setups/kitcube/config.php:24
+msgid "KIT Cube"
+msgstr ""
+
+#: ../setups/rrd/config.php:8
+msgid "RRD"
+msgstr ""
+
+#: ../setups/rrd/config.php:48 ../setups/autogen/config.php:161
+#: ../config.php:67
+msgid "1 Year"
+msgstr ""
+
+#: ../setups/rrd/config.php:49 ../setups/autogen/config.php:162
+#: ../config.php:68
+msgid "1 Month"
+msgstr ""
+
+#: ../setups/rrd/config.php:50 ../setups/autogen/config.php:163
+#: ../config.php:69
+msgid "1 Week"
+msgstr ""
+
+#: ../setups/rrd/config.php:51 ../setups/autogen/config.php:164
+#: ../config.php:70
+msgid "1 Day"
+msgstr ""
+
+#: ../setups/rrd/config.php:52 ../setups/autogen/config.php:165
+#: ../config.php:71
+msgid "6 Hours"
+msgstr ""
+
+#: ../setups/rrd/config.php:53 ../setups/autogen/config.php:166
+#: ../config.php:72
+msgid "1 Hour"
+msgstr ""
+
+#: ../setups/rrd/config.php:54 ../setups/autogen/config.php:167
+msgid "30 Min"
+msgstr ""
+
+#: ../setups/rrd/config.php:55 ../setups/autogen/config.php:168
+#: ../config.php:74
+msgid "5 Min"
+msgstr ""
+
+#: ../setups/katrin/classes/search/kdbsearch.php:13
+msgid "Runs"
+msgstr ""
+
+#: ../setups/katrin/modules/katrin.php:3
+msgid "Katrin"
+msgstr ""
+
+#: ../setups/katrin/modules/filter.php:4
+#: ../setups/katrin/modules/katrinfilter.php:4
+msgid "Filter"
+msgstr ""
+
+#: ../setups/katrin/config.php:27
+msgid "HauptSpektrometer/Commisioning"
+msgstr ""
+
+#: ../setups/katrin/config.php:38
+msgid "PreSpektrometer/Zeus7"
+msgstr ""
+
+#: ../setups/katrin/config.php:51
+msgid "PreSpektrometer/Zeus8"
+msgstr ""
+
+#: ../setups/katrin/config.php:67
+msgid "MainSpektrometer/Zeus8"
+msgstr ""
+
+#: ../setups/katrin/config.php:82
+msgid "MainSpektrometer/OPC"
+msgstr ""
+
+#: ../setups/katrin/config.php:98
+msgid "KATRIN Detector/MSSQL Sync"
+msgstr ""
+
+#: ../setups/katrin/config.php:114
+msgid "KATRIN Detector/ADEI Sync"
+msgstr ""
+
+#: ../setups/katrin/config.php:128
+msgid "Test Cylinder"
+msgstr ""
+
+#: ../setups/asec/config.php:8
+msgid "ASEC"
+msgstr ""
+
+#: ../setups/ipe/config.php:19
+msgid "IPETOSKANADB"
+msgstr ""
+
+#: ../setups/toska/config.php:28
+msgid "TOSKA"
+msgstr ""
+
+#: ../setups/toska/config.php:48
+msgid "kA"
+msgstr ""
+
+#: ../setups/toska/config.php:49 ../config.php:134 ../config.php:140
+msgid "Current"
+msgstr ""
+
+#: ../setups/toska/config.php:54
+msgid "mV"
+msgstr ""
+
+#: ../setups/toska/config.php:55 ../config.php:128
+msgid "Voltage"
+msgstr ""
+
+#: ../setups/toska/config.php:60
+msgid "m3/h"
+msgstr ""
+
+#: ../setups/toska/config.php:61
+msgid "Flow"
+msgstr ""
+
+#: ../setups/backup/config.php:9
+msgid "KATRIN Detector"
+msgstr ""
+
+#: ../setups/wt/config.php:40 ../setups/imk/config.php:40
+msgid "Weather Tower"
+msgstr ""
+
+#: ../setups/dvin/config.php:8
+msgid "DVIN"
+msgstr ""
+
+#: ../setups/dvin/config.php:21
+msgid "NMDB"
+msgstr ""
+
+#: ../setups/test/config.php:19
+msgid "ZEUS Test Server"
+msgstr ""
+
+#: ../setups/autogen/config.php:7
+msgid "Slow Generator"
+msgstr ""
+
+#: ../setups/autogen/config.php:12
+msgid "Fast Generator"
+msgstr ""
+
+#: ../setups/autogen/config.php:25
+msgid "Noisy Line"
+msgstr ""
+
+#: ../setups/autogen/config.php:30 ../classes/readers/testreader.php:128
+msgid "Cosinus"
+msgstr ""
+
+#: ../setups/autogen/config.php:34 ../setups/autogen/config.php:81
+msgid "Noisy Cosinus"
+msgstr ""
+
+#: ../setups/autogen/config.php:39 ../classes/readers/testreader.php:124
+msgid "Sinus"
+msgstr ""
+
+#: ../setups/autogen/config.php:43
+msgid "Wide Sinus"
+msgstr ""
+
+#: ../setups/autogen/config.php:47
+msgid "Combined Sinuses"
+msgstr ""
+
+#: ../setups/autogen/config.php:51
+msgid "Fading Sinus"
+msgstr ""
+
+#: ../setups/autogen/config.php:70
+msgid "Extra Sinus"
+msgstr ""
+
+#: ../setups/autogen/config.php:74
+msgid "Extra Cosinus"
+msgstr ""
+
+#: ../setups/autogen/config.php:86
+msgid "Combined Cosinus"
+msgstr ""
+
+#: ../setups/autogen/config.php:90
+msgid "Combined Sinus"
+msgstr ""
+
+#: ../setups/autogen/config.php:124 ../setups/autogen/config.php:132
+#: ../classes/readers/testreader.php:146
+msgid "Default Group"
+msgstr ""
+
+#: ../setups/autogen/config.php:136
+msgid "Extra Group"
+msgstr ""
+
+#: ../setups/autogen/config.php:155
+msgid "Test Virtual Group"
+msgstr ""
+
+#: ../setups/prespec/config.php:19
+msgid "ZEUS PreSpectrometer"
+msgstr ""
+
+#: ../wiki.php:101 ../services/wiki.php:101
+msgid "View"
+msgstr ""
+
+#: ../classes/reader.php:198 ../classes/readers/virtualreader.php:291
+#: ../classes/readers/zeus.php:450 ../services/list.php:168
+#: ../services/menu.php:143
+msgid "All"
+msgstr ""
+
+#: ../classes/search/intervalsearch.php:7
+msgid "Dates"
+msgstr ""
+
+#: ../classes/search/itemsearch.php:23 ../services/menu.php:88
+#: ../services/menu.php:89 ../modules/export.php:30
+msgid "Items"
+msgstr ""
+
+#: ../classes/search/itemsearch.php:24
+msgid "Channels"
+msgstr ""
+
+#: ../classes/search/itemsearch.php:25
+msgid "Masks"
+msgstr ""
+
+#: ../classes/search/itemsearch.php:26
+msgid "Groups"
+msgstr ""
+
+#: ../classes/search/itemsearch.php:27
+msgid "Control Items"
+msgstr ""
+
+#: ../classes/search/itemsearch.php:28
+msgid "Control Groups"
+msgstr ""
+
+#: ../classes/search/itemsearch.php:29
+msgid "Control Channels"
+msgstr ""
+
+#: ../classes/readers/testreader.php:119
+msgid "Line"
+msgstr ""
+
+#: ../classes/readers/virtualreader.php:133
+msgid "Unnamed Virtual Group"
+msgstr ""
+
+#: ../classes/readers/virtualreader.php:141
+#: ../classes/readers/virtualreader.php:262
+#: ../classes/readers/virtualreader.php:324 ../modules/virtual.php:2
+msgid "Source Tree"
+msgstr ""
+
+#: ../classes/readers/virtualreader.php:216
+msgid "Joint Group"
+msgstr ""
+
+#: ../classes/readers/virtualreader.php:257
+msgid "No groups"
+msgstr ""
+
+#: ../classes/readers/virtualreader.php:319
+msgid "No items"
+msgstr ""
+
+#: ../classes/readers/zeus.php:391 ../classes/readers/zeus.php:422
+msgid "No name"
+msgstr ""
+
+#: ../services/list.php:154
+msgid "All Measurements"
+msgstr ""
+
+#: ../services/list.php:155 ../services/menu.php:170
+msgid "Everything"
+msgstr ""
+
+#: ../services/list.php:163 ../services/list.php:176
+msgid "Custom"
+msgstr ""
+
+#: ../services/list.php:181 ../services/list.php:188
+msgid "Auto"
+msgstr ""
+
+#: ../services/list.php:182
+msgid "MIN-MAX"
+msgstr ""
+
+#: ../services/list.php:183
+msgid "MEAN"
+msgstr ""
+
+#: ../services/list.php:189
+msgid "Always"
+msgstr ""
+
+#: ../services/list.php:190 ../services/list.php:197
+msgid "On Missing Data"
+msgstr ""
+
+#: ../services/list.php:191 ../services/list.php:196
+msgid "Disabled"
+msgstr ""
+
+#: ../services/list.php:198
+msgid "Show Data Points"
+msgstr ""
+
+#: ../services/list.php:199
+msgid "Show Missing Data"
+msgstr ""
+
+#: ../services/list.php:204
+msgid "Off"
+msgstr ""
+
+#: ../services/list.php:205
+msgid "On"
+msgstr ""
+
+#: ../services/list.php:218 ../services/menu.php:160
+msgid "No Resampling"
+msgstr ""
+
+#: ../services/list.php:227 ../services/menu.php:167
+msgid "Current Mask"
+msgstr ""
+
+#: ../services/list.php:228
+msgid "Log Group"
+msgstr ""
+
+#: ../services/list.php:229 ../modules/source.php:113
+msgid "Database"
+msgstr ""
+
+#: ../services/list.php:230
+msgid "Complete"
+msgstr ""
+
+#: ../services/list.php:235
+msgid "Current Window"
+msgstr ""
+
+#: ../services/list.php:236
+msgid "Whole Experiment"
+msgstr ""
+
+#: ../services/list.php:237
+msgid "Selection"
+msgstr ""
+
+#: ../services/menu.php:150 ../modules/export.php:19
+msgid "Format"
+msgstr ""
+
+#: ../services/menu.php:159
+msgid "Sampling"
+msgstr ""
+
+#: ../services/menu.php:166
+msgid "Exported Items"
+msgstr ""
+
+#: ../services/menu.php:168
+msgid "Current Group"
+msgstr ""
+
+#: ../services/menu.php:169
+msgid "Current Database"
+msgstr ""
+
+#: ../services/menu.php:193
+msgid "New Query"
+msgstr ""
+
+#: ../services/menu.php:194 ../modules/source.php:2
+msgid "Data Source"
+msgstr ""
+
+#: ../services/menu.php:195
+msgid "Time Range"
+msgstr ""
+
+#: ../services/menu.php:196
+msgid "Export Settings"
+msgstr ""
+
+#: ../services/menu.php:198
+msgid "Save Mask"
+msgstr ""
+
+#: ../services/menu.php:199
+msgid "Save Window"
+msgstr ""
+
+#: ../services/menu.php:201
+msgid "Lock Window"
+msgstr ""
+
+#: ../services/menu.php:202
+msgid "ReDraw"
+msgstr ""
+
+#: ../services/menu.php:203
+msgid "Save"
+msgstr ""
+
+#: ../modules/logs.php:3
+msgid "Logs"
+msgstr ""
+
+#: ../modules/export.php:2
+msgid "Export"
+msgstr ""
+
+#: ../modules/export.php:22
+msgid "Resolution"
+msgstr ""
+
+#: ../modules/export.php:28
+msgid "Resample"
+msgstr ""
+
+#: ../modules/export.php:32 ../modules/source.php:144
+msgid "Window"
+msgstr ""
+
+#: ../modules/login.php:3
+msgid "Login"
+msgstr ""
+
+#: ../modules/login.php:8
+msgid "User"
+msgstr ""
+
+#: ../modules/login.php:10
+msgid "Password"
+msgstr ""
+
+#: ../modules/graph.php:3
+msgid "Graph"
+msgstr ""
+
+#: ../modules/wiki.php:2
+msgid "WiKi"
+msgstr ""
+
+#: ../modules/slowcontrol.php:2
+msgid "Control"
+msgstr ""
+
+#: ../modules/source.php:102
+msgid "Source"
+msgstr ""
+
+#: ../modules/source.php:103
+msgid "Time"
+msgstr ""
+
+#: ../modules/source.php:104
+msgid "Axes"
+msgstr ""
+
+#: ../modules/source.php:111
+msgid "Server"
+msgstr ""
+
+#: ../modules/source.php:115 ../modules/controls.php:2
+msgid "Controls"
+msgstr ""
+
+#: ../modules/source.php:117
+msgid "LogGroup"
+msgstr ""
+
+#: ../modules/source.php:119
+msgid "ItemMask"
+msgstr ""
+
+#: ../modules/source.php:126
+msgid "Experiment"
+msgstr ""
+
+#: ../modules/source.php:128 ../modules/source.php:146
+msgid "Start"
+msgstr ""
+
+#: ../modules/source.php:136 ../modules/source.php:154
+msgid "End"
+msgstr ""
+
+#: ../modules/source.php:165
+msgid "Y"
+msgstr ""
+
+#: ../modules/source.php:165
+msgid "Reset"
+msgstr ""
+
+#: ../modules/help.php:3
+msgid "Help"
+msgstr ""
+
+#: ../modules/settings.php:2 ../modules/config.php:3
+msgid "Settings"
+msgstr ""
+
+#: ../modules/alarms.php:2
+msgid "Alarms"
+msgstr ""
+
+#: ../modules/data.php:3
+msgid "Data"
+msgstr ""
+
+#: ../modules/aggregator.php:2
+msgid "Aggregator"
+msgstr ""
+
+#: ../modules/aggregator.php:13
+msgid "Approach"
+msgstr ""
+
+#: ../modules/aggregator.php:15
+msgid "Interpolation"
+msgstr ""
+
+#: ../modules/aggregator.php:17
+msgid "Show Marks"
+msgstr ""
+
+#: ../modules/aggregator.php:19
+msgid "Show Gaps"
+msgstr ""
+
+#: ../modules/download.php:2
+msgid "Downloads"
+msgstr ""
+
+#: ../modules/searchtab.php:3
+msgid "Search"
+msgstr ""
+
+#: ../config.php:73
+msgid "15 Min"
+msgstr ""
+
+#: ../config.php:94
+msgid "Virtual"
+msgstr ""
+
+#: ../config.php:103
+msgid "Count Rate"
+msgstr ""
+
+#: ../config.php:109
+msgid "C"
+msgstr ""
+
+#: ../config.php:110 ../config.php:116
+msgid "Temperature"
+msgstr ""
+
+#: ../config.php:115 ../config.php:121
+msgid "K"
+msgstr ""
+
+#: ../config.php:122
+msgid "Delta Temperature"
+msgstr ""
+
+#: ../config.php:127
+msgid "V"
+msgstr ""
+
+#: ../config.php:133
+msgid "A"
+msgstr ""
+
+#: ../config.php:139
+msgid "uA"
+msgstr ""
+
+#: ../config.php:145
+msgid "Ohm"
+msgstr ""
+
+#: ../config.php:146
+msgid "Resistance"
+msgstr ""
+
+#: ../config.php:151
+msgid "millibar"
+msgstr ""
+
+#: ../config.php:152
+msgid "Vacuum"
+msgstr ""
+
+#: ../config.php:157
+msgid "bar"
+msgstr ""
+
+#: ../config.php:158
+msgid "Pressure"
+msgstr ""
+
+#: ../config.php:163
+msgid "mbar"
+msgstr ""
+
+#: ../config.php:164
+msgid "Delta Pressure"
+msgstr ""
+
+#: ../config.php:169
+msgid "kg"
+msgstr ""
+
+#: ../config.php:170
+msgid "Mass"
+msgstr ""
+
+#: ../config.php:175
+msgid "g/s"
+msgstr ""
+
+#: ../config.php:176
+msgid "Mass-flow"
+msgstr ""
+
+#: ../config.php:181
+msgid "u/m"
+msgstr ""
+
+#: ../config.php:182
+msgid "Strain"
+msgstr ""
+
+#: ../config.php:187
+msgid "mm"
+msgstr ""
+
+#: ../config.php:188
+msgid "Position"
+msgstr ""
+
+#: ../config.php:193 ../config.php:199
+msgid "W"
+msgstr ""
+
+#: ../config.php:194
+msgid "Heating Power"
+msgstr ""
+
+#: ../config.php:200
+msgid "Thermal Power Loss"
+msgstr ""
+
+#: ../config.php:205
+msgid "rpm"
+msgstr ""
+
+#: ../config.php:206
+msgid "Round per Minute"
+msgstr ""
+
+#: ../config.php:299
+msgid "Hourly"
+msgstr ""
+
+#: ../config.php:300
+msgid "Minutely"
+msgstr ""
+
+#: ../config.php:301
+msgid "1 Hz"
+msgstr ""
+
+#: ../config.php:302
+msgid "1000 Hz"
+msgstr ""

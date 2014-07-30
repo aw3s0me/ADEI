@@ -1,0 +1,19 @@
+ Dear user, welcome to the Advanced Data Extraction Infrastructure! 
+The ADEI is loaded and ready to work. 
+Please, click on "Data Source" popup on the left sidebar and select the data
+source and time interval. Alternatively, you could use a pulldown menu on the 
+top of sidebar.
+
+
+Navigation trough the data is feasible with mouse. Please, press and hold
+left mouse button to select region. Then click on the arrow button to zoom
+inside. The mouse wheel could be used to shift current window left
+
+
+To download selected data open 'Controls' popup and choose "Export" tab. 
+You will be able to get the data in the multiple supported formats. 
+Please, Be patient, the preparation of data may take a while.
+
+
+Please, to find more information about data navigation and export go to the 
+Help page.

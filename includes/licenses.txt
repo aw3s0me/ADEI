@@ -1,0 +1,9 @@
+DateTimePicker - No Licenseing Information is Stated
+Cropper - BSD
+    For GPL compatibility see http://www.gnu.org/philosophy/bsd.html, 
+    however should be no problem
+RSH - New BSD License
+Prototype - MIT
+Scriptaculous - MIT
+DHTMLX - GPL (version is not stated) / Commercial
+Ext - GPL v. 3 / Commercial

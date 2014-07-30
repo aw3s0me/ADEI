@@ -1,0 +1,190 @@
+****************************** BASIC APPROACH *******************************
+=============================================================================
+* To make fast graphs we are reducing actual number of points for processing. 
+Basicaly, if we need to display picture 600x600 we need not more than 600 
+points. To get this points from the (possibly) huge amount of real data we
+are using two step algorithm.
+
+First Step
+----------
+* At first step we dividing the actual time window (whole interval we are 
+interested in) in the N intervals and aggregating the data over it. For each
+interval we know
+  - Interval start
+  - Interval width
+  - Number of data points within interval
+  - Aggregated values for all channels (MIN, MAX, MEAN)
+  - In the future versions over aggregated types like (MEDIAN) could be added
+  - Optionaly we could have information about maximal data gap on the interval
+    (please consider "DATA GAPS" section for information about precision)
+ 
+* Of course the database requests obtaining this information over big intervals 
+would take a lot of time. Therefore, we have CACHE tables containing aggregated
+information for few standard interval sizes (configurable depending on the 
+expected data rate). 
+  When data request is comming, we are:
+    1) Checking if the required intervals are quite close to one of CACHE 
+    tables and returning information from appropriate CACHE table if so.
+    2) Otherwise, we are aggregating the data from the biggest possible
+    CACHE which still would provide enough data points (when aggregated)
+    3) For small intervals, the aggregation over raw data table is executed.
+    However, it do not take much time on the small interval size.
+    
+* The only problem is cases when we have few small periods with very high
+update rate, while the rest of data is sampled with much lower frequences. In
+that case it makes no sense (and will take a lot of disk space) to make CACHE 
+table for aggregation. But amount of data in specific places is to much for
+in-place aggregation and, therefore, this places would be displayed with big
+delay. 
+ To handle such situation, we are using so called subcaches. [ WILL BE 
+ INTRODUCED in the next version ]
+
+Second Step
+-----------
+* On second step we are converting intervals to the data points. Actually
+we using several approaches to get different view of the data. Just smoth
+averaged graph to get impression on the global processes. The MIN-MAX approach
+representing all extrim values of data channels, etc.
+
+
+MINMAX APPROACH
+===============
+ N + 1 points are used for representing N intervals. 
+  * Points are set in the begining, end and between all intervals.
+  * For placing Y the following MIN-MAX-MIN algorithm is used. Consider two 
+  intervals: (min1,max1), (min2,max2). 
+    The following free points (a,b,c) will be used.
+	1. starting from minimum: a = min1
+	2. looking if second interval completely above as 
+	    a) if so, puting b = min2 
+		- location: begining of second interval
+		- next iteration we will continue rise (at least to max2)
+	    b) otherwise, b is MAX(max1, max2)
+		- location: end of ivl1 or begining of ivl2
+		- next iteration will umenshatsya.
+ 	3. c = max2 or min2 depending on previous step
+  * All points are proccessed in the chunk and, therefore, we would have 
+  only one extra point compared to number of intervals.
+  
+  Handling Gaps 
+  -------------
+  * The described procedure should be interupted if we got a gap in the data. 
+  Otherwise we would get high precision problems. However, for each brake we
+  would have extra point which would break specified limit of points. In order
+  to handle that problem, we ignoring small gaps and restarting algorithm only
+  if there are enough space in the gap for another point I.E. we normally do
+  not put points in the gap area. Therefore, if we expect a point to be
+  put there (if it would not be a gap), we consider that we have an extra
+  (saved) point and are allowed to restart algorithm.
+ 
+  * To find a mimimal size of gap, for which we are restarting algorithm, we 
+  are estimating the 'expected' gap between sequent points. When we dealing 
+  with non-raw (CACHE) data this value is exact (the 'resolution', window / 
+  interval width and maximal allowed number of points '$limit' - is used 
+  for calculation).
+
+  Things a little bit more complicated while dialing with raw data. We do not
+  actually know how much data points will be found. However, this value should
+  be below limit. It would cause very often restarts in the cases if were are
+  in reality much less points than allowed.
+  To handle that case, we are differntly treating the intervals with a single
+  data point inside. If we are out of our algorithm (just starting or after 
+  restart) we just puting the points in appropriate place without starting
+  algorithm. Of course, if we are already processing the data using MINMAX 
+  algorithm, we would continue while the points within allowed range from each
+  other. So, summarizing:
+    a) if we have high density of points, the distance between points will fit
+    in the approximated range. They would be aggregated and there will be no 
+    intervals with single point. Therefore, standard processing using MIN-MAX
+    algorithm is used. 
+    b) if we have low density of points we will have single-point intervals and
+    will process them directly.
+    c) In the mixed cases, when we have variable density over interval. The 
+    MINMAX algorithm would exit on first single-alone (single point, and located
+    away from others) point and enter MINMAX mode again then the dense area 
+    begins.
+
+  * This all was not about reporting missing data to the user, this gap could 
+  be completely OK from data collecting point of view.
+  
+  Reporting Gaps
+  --------------
+  If "CACHE::REPORT_EMPTY" mode is switched on and there is intervals without
+  data present, this intervals will be reported. Normally, missing data just
+  silently ignored.
+  
+  - Missing points on the edges are not reported.
+  - Gaps bellow doubled 'expected' gap (see section Handling Gaps above) are 
+  not reported .
+  - By default only the gaps above interval size in minimal used CACHE table
+  are reported. However, the minimal size could be adjusted in configuration on
+  per group basis.
+
+  Expected Position Error
+  -----------------------
+    Maximal error for this approximation is 2 intervals. Consider
+    folowing case: ---.-|-.--- (3 intervals, with short drop within
+    one of them). This case could be handled
+        a) \\\.///.---
+	b) ---.\\\.///
+    I.e. in any case the some lines are actually two intervals away
+    from the real value
+
+
+***************************** DATA AGGREGATION ******************************
+=============================================================================
+
+DATA GAPS
+=========
+ There are two parts in the data gap calculation code: creating caching tables,
+ aggregating the data from caching tables.
+ 
+ 1. The 'missing' attribute in non-raw caching tables are used to store maximal
+ gap in the data. The current code have limited precision, the real gap is 
+ in the following range: "missing <= real_gap < 3 x missing".
+ This is because of edge cases. For example we have two cache levels: 60 and 10,
+ and if we have following sequence of 10th: |.   |,|     |,|    .|
+ single point in the begining, no points, single point in the end. The current
+ algorithm will produce only 'missing=10' for encompassing cache60.
+ [ We don't check edges, if there would be no points in the first and third
+ intervals, the  result would be correct - 30. ]
+
+ 2. For speed reasons we perform aggregation on the database side, not in PHP.
+ Unfortunatelly, there is no flexible way to process sequential rows and found
+ the distance between them (or when the amount of points drops to 0 and rises
+ again) [ actually there is a non standard way for doing that, but it doesn't
+ work in php, only from mysql client, and it considers undocumented behaviour
+ wich could change in the future versions of mysql. The way is based on 
+ variables and sequence of their evaluation. The example is looking, like:
+
+    SELECT UNIX_TIMESTAMP(MIN(time)) AS timestamp, COUNT(*) AS items, (UNIX_TIMESTAMP(MAX(time)) - UNIX_TIMESTAMP(MIN(time))) AS width, MAX(IF(@tmpvar_pos=FLOOR((UNIX_TIMESTAMP(`time`) - 1185781200 )/171.428571429), (UNIX_TIMESTAMP(time)-@tmpvar_width), 0)) AS maxgap, @tmpvar_pos:=FLOOR((UNIX_TIMESTAMP(`time`) - 1185781200 )/171.428571429) AS tmpcol1, @tmpvar_width:=UNIX_TIMESTAMP(time) AS tmpcol2, MIN(v1) AS min0, MAX(v1) AS max0, AVG(v1) AS mean0 FROM `cache0__katrin__hauptspektrometer__0` WHERE ((`time`>= 20070730074000) AND (`time` < 20070730080000)) GROUP BY FLOOR((UNIX_TIMESTAMP(`time`) - 1185781200 )/171.428571429) ORDER BY `time` ASC;
+
+ At the moment we just expect what the data is unifromly distributed over 
+ aggregated intervals. This could lead to ever bigger gaps inaccuracy. However,
+ approximated gap values still do not exceed real value.
+ In the future versions we should implement  the precise way of gap calculation
+ using stored functions for processing sequential rows.
+
+
+******************************* OPTIONS *************************************
+=============================================================================
+
+Global options
+==============
+
+Various per-group options
+=========================
+ * fill_raw_first
+    Fill RAW cache table completely prior to processing agregating cache tables
+    
+    This is mainly intended for sources without correct indexes. In such 
+    situations selecting the data for a specified time interval make take
+    a while (database engines iterates over whole dataset finding matching 
+    rows, instead looking in index). Therefore, we are doing only a single
+    request to the datasource to make it only once.
+    
+    The tests, however, shown that this method is slightly faster than default
+    one (31s agains 39s) and, therefore, could be used to optimize speed even
+    if indexes are okey. [ Actually this is really dependent on relative
+    performance of data source server and the caching server and, therefore,
+    it's better recheck if it's really optimizion not slowdown. ]

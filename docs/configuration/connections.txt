@@ -1,0 +1,50 @@
+Common
+======
+ - title [string<locale>]
+    Just a title to be presented to end users.
+ - reader [class]
+    ADEI class handling connection to the source, examples: DBReader
+ - database [array]
+    Lists actual databases. It is only a hint to the readers, and they are 
+    allowed to provide (in user view) completely different names. 
+    However, current READERs are considering that specified names are actual 
+    database indentificators which are passed to users. 
+
+    As well it is considered what any database which is actualy specified in 
+    database array is active database and there are the data is logged in it. 
+    However, the READER could additionaly return the suffixed databases (
+    the actual database + arbitrary suffix, normaly refering a date) which
+    contain the historical data.
+ - multibase
+    This disables lookup for suffixied database (see 'database' option)    
+ - disconnected [boolean]
+    This means what data source is not any more available and only information
+    stored in the CACHE should be used.
+ - timeout [integer] {us}
+    Specifies data source connection timeout
+ - ping [boolean]
+    To support READERS ignoring 'timeout' option, the 'ping' option instructs
+    common reader interface to use ping-before-connect approach in order to 
+    avoid connection attempts to dead/inaccessible servers.
+ - charset [string]
+    Character encoding in which database reports problems
+
+
+Database based (DBReader, ZEUSReader)
+==============
+ - driver [id]
+    Database driver, like: odbc, mysql, ...
+ - sqldrv [id]
+    Underlying database engine, should be specified if general libraries 
+    (like odbc) are used to access database. 
+    Examples: mysql, mssql
+ - subdrv [id]
+    Actual database driver, should be specified if general libraries (like
+    odbc) are used to access database.
+    Examples: FreeTDS
+ - host [string]
+ - port [integer]
+    Specifies database port. '0' means - use the database default.
+ - user [string]
+ - password [string]
+ 

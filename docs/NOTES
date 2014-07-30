@@ -1,0 +1,31 @@
+MODIFICATIONS
+=============
+datetimepicker:
+    addeded callback function to notify about value changes (onchange event
+    is not emited if the input field is altered by JS)
+
+cropper:
+    major feature enchancements to provide application with much more 
+    information on user interactions.
+
+dhtmlHistory(rsh):
+    In the original version there is certain problems with Internet Explorer,
+    for example: http://code.google.com/p/reallysimplehistory/issues/detail?id=33
+    
+    There is some fixes, still certain problems in non-gecko browsers are still
+    possible:
+    1) I expect were could be problem if we are going back before new location
+    is stored.
+
+
+BROWSERS
+========
+ IE 6,7:
+    - If durign event processing we call removeChild on the element associated
+    with event, then IE will afterwards ignore keydown (and probaly some other
+    events) until we click on the browser window.
+    
+    Actually, the problem was: We click on Apply button of selection and 
+    afterwards IE ignores all key modifiers until we click in.
+
+

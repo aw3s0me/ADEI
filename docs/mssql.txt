@@ -1,0 +1,97 @@
+The following configuration is used to access MSSQL servers
+ a) PDO_ODBC (PhP 5.2.6 + fixes)
+ b) unixODBC (2.2.12)
+ c) FreeTDS (0.82 + fixes)
+ d) MS SQL Server 2005
+ 
+Mandatory Patches
+-----------------
+ - PhP PDO/ODBC driver incorrectly handles long binary fields in the queries 
+ (resulting in "Out of memory" error). This is a fix. Php bug #42765.
+ The patch against php-5.2.6 (mandatory if BLOB data is used):
+    http://dside.dyndns.org/projects/patches.dir/php-ds-odbc_blob.patch
+
+ - unixODBC (at least up to 2.2.12) expects pointer on 32 bit interger as
+ last parameter of SQLBindCol call (MSDN defines SQLLEN). However, the php
+ on Linux 64 bit platform is passing 64 bit integer. This causes crash.
+ Unfortunately, it is really hard work to fix it on unixODBC side (expected in 
+ 2.2.13). Therefore, the parts of the problem which is involving PDO/ODBC 
+ misbehaviour is fixed on PhP side.
+ The patch against php-5.2.6 (mandatory):
+    http://dside.dyndns.org/projects/patches.dir/php-ds-odbc64.patch
+ 
+ - FreeTDS (0.82 and earlier) ODBC driver is corrupting data if SQLGetData is 
+ called multiple times on a single column and  BINARY->CHAR data conversion 
+ has been involved. 
+ The patch agains FreeTDS-0.82 (mandatory if BLOB data bigger than 512 bytes
+ is used):
+    http://dside.dyndns.org/projects/patches.dir/freetds-0.82-odbc-csa2.patch 
+ 
+Optional Patches
+----------------
+ - PhP (5.2.6 and earlier) PDO/ODBC driver is ignoring PDO::ATTR_TIMEOUT 
+ attribute, what causes extremly long delays trying to access dead / unreachable
+ servers. Php bug #45287. 
+ The patch agains php-5.2.6 (optional, recommended):
+    http://dside.dyndns.org/projects/patches.dir/php-ds-odbc_timeout.patch
+
+ - FreeTDS uses SQL_ATTR_CONNECTION_TIMEOUT instead SQL_ATTR_LOGIN_TIMEOUT
+ on connection initialization. This do not causing big problems, but
+ violites ODBC specification.
+ The patch against php-5.2.6 (optional):
+ http://dside.dyndns.org/projects/patches.dir/freetds-ds-connect_timeout.patch
+
+ - Be aware what PDO/ODBC returns BINARY blobs converted to ASCII hexdecimal 
+ representation. I decieded against patching this behaviour in driver code, 
+ but just taking care in php code.
+ However, to insert data in the binary blob, it is neccesary to provide the 
+ data in binary form. 
+
+Known problems
+--------------
+ - PhP (5.2.6) PDO/ODBC driver incorrectly handles PDO::PARAM_LOB parameters if 
+ $length attribute is set. No fix is available upto now, just avoid setting the
+ $length attribute.
+
+ - Either PDO/ODBC module or FreeTDS is sending all the data (with exception of
+ PDO::PARAM_LOB) to MSSQL server using TEXT variables. However, MSSQL is not 
+ able to make implicit conversion of TEXT variables. 
+ This causes troubles while writing INSERT queries. The problem could be 
+ avoided by making explicit conversion to size-limit CHAR type in INSERT 
+ query. Like this:
+    INSERT INTO ... (intcol) VALUE(CONVERT(CHAR(64), ?));
+    
+ - after 'prepare' call, the query (at least INSERT one) could be 'execute' 
+ only 65535 times. Afterwars, strange excpetion is emerges. Just repraparing
+ is not helpful. It's necessary to close PDO connection and open it again.
+
+Reciptes
+-------- 
+ - Inserting the datetime values into MSSQL database is quite tricky, I'm
+ using following procedure:
+  * Setting date format:
+    $dbh->query("set dateformat ymd");
+  * Formating date string:
+    $sqltime = strftime("%Y-%m-%d %H:%M:%S", floor($tm));
+  * Preparing SQL query:
+    ... VALUES( ... CONVERT(DATETIME, CONVERT(CHAR(20), ?), 111) ... ) ...
+
+
+More Infos
+----------
+ - FreeTDS ODBC driver is not implementing SQLDescribeType interface. Therefore,
+ php is not able to detect sql_type for SQL_BIND_PARAM call. It tries to guess:
+    LOB columns 	- the VAR_BINARY is guessed
+    everything else	- the VAR_CHAR is guessed
+
+ Therefore, the wrong sql_type will be guessed if we have a BINARY column, but 
+ not using LOB parameter.
+ 
+ This causes INSERT calls to fail. Therefore, it is mandatory necessary to 
+ specify LOB type for all INSERTs on binary blobs. The SELECTs are not affected.
+
+ - To change behaviour of PhP PDO/ODBC driver which is returning binary blobs
+ in ASCII hexdecimal representation, it is neccessary to alter SQL_C_CHAR
+ data type currently passed to the SQLGetData within following function:
+	    odbc_stmt.c/odbc_stmt_get_col
+

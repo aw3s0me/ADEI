@@ -1,0 +1,23 @@
+
+<sections>
+  <section name="navigation">
+    <info>
+	The navigation is organized ...
+    </info>
+
+    <actions>
+      <action>
+	<key>T + Wheel</key>
+	<info>
+	    Move current data window to the left-or-right
+	</info>
+      </action>
+      <action>
+	<key>V + Wheel</key>
+	<info>
+	    Move current data window to the left-or-right
+	</info>
+      </action>
+    </actions>
+  </section>
+</sections>

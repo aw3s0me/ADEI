@@ -1,0 +1,19 @@
+RewriteEngine On
+RewriteOptions inherit
+
+RewriteCond %{REQUEST_FILENAME} !service.php$
+RewriteCond %{REQUEST_URI} ^(.*services/)[\w\d_]+(\.php)?$
+RewriteRule ^([\w\d_]+)(\.php)?$  %1service.php?service=$1&%{QUERY_STRING} [L,P]
+
+#RewriteRule ^([\w\d_]+)(\.php)?$  http://127.0.0.1/%1service.php?service=$1&%{QUERY_STRING} [L,P]
+#<Files "service.php">
+#    Order deny,allow
+#    Deny from all
+#    Allow from 127.0.0.1
+#</Files>
+
+#<Files "control.php">
+#    Order deny,allow
+#    Deny from all
+#    Allow from 141.52.64.104
+#</Files>

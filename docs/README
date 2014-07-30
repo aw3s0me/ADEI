@@ -1,0 +1,126 @@
+BROWSER SUPPORT
+===============
+ The ADEI is optimized for browsers of mozilla family. However it tested and
+shown to work with Opera and Internet Explorer as well. Tested in:
+    * Mozilla Seamonkey 1.1.7 (Linux, amd64)
+    * Mozilla Firefox 3.0 (Linux, amd64)
+    * Mozilla Firefox 2.0.0.11 (Linux, x86)
+    * Opera 9.27 (Linux, x86)
+    * Internet Explorer 6.0 SP1 (Win2000)
+    * Internet Explorer 7.0 (WinXP)
+    * Safari 3.1 (WinXP)
+
+Following browsers are not thorougly tested, but reported to work
+    * Safari 3.0.4 (MacOS 10.4.11, PowerPC G4)
+    * Safari (MacOS Tiger) 
+    * Arora, QT-WebKit 4.4.0 (Linux, amd64)
+    * Konqueror 4.2 (Linux, amd64)
+
+Following browsers are surelly not working:
+    * Konqueror 3.5.7
+
+
+FUNCTIONS
+=========
+ Overall:
+    - Clicking on buttons on the left side of image will open various
+    controls:
+	1) Various graphic options
+	2) Source of the data: database, data group, etc
+	3) Data export settings
+    - Mentioned above buttons may had special pictograms allowing fast
+    access to the encompassed options, allowing basic operations without
+    opening full controls.
+    
+ Graph:
+    - Holding left mouse key it is possible to select area. Afterwards the
+    selection area could be adjusted and shifted. Besides that it is possible
+    to select:
+	+ Only timeframe leaving the allowed value-range untouched. To achieve
+	that, please, select area with only a few pixels height.
+	+ Only accepted value range leaving the timeframe untouch. To achieve
+	that, please, slect area with only a few pixels width.
+    Following actions can be pefrormed with selection:
+	+) Zoom: by double clicking within the selction, or by clicking
+	on apply button attached to the selection.
+	+) Export: Export the data within selection using current export 
+	settings. Achieved by clicking on export button attached to the
+	selection.
+	+) Cancel: To cancel selection just click with a mouse somethere 
+	outside of the selection.
+    - By clicking on the graphic it is possible to get information about
+    data items displayed (and alter items mask: display only selected items
+    or remove selected items from display).
+	+ The mentioned information is shown in popup window which could be 
+	moved and resized. If it's moved, the folowing clicks will alter
+	content in the window but not window position and size.
+	+ To enable again size and possition auto-adjustment the window
+	should be closed by clicking "close" button in the left-upper
+	angle.
+	+ The second button in the angle will maximize window.
+    - Changing certain parameters (for example items, non-by-item masks, 
+    display window size) will automaticaly apply configuration. The rest
+    of the parameters should be manually applied.
+    - The graphic is pereodically auto-updated to display newly obtained
+    data (update rate is specified in the server configuration).
+    - The accuracy of the graph is highly dependent on amount of the data
+    items and may varry from 1 to appr. 100 pixels (actual values are
+    specified in the server configuration).
+    - Zooming time window in and out could be done with mouse wheel.
+
+ History:
+    - The history is only updated if the graph (or some equivalent on other
+    pages) is changed. The alteration of EXPORT setting will be ignored by
+    history (but they will be reflected in the browser location).
+    
+    
+TIME.
+====
+ In order to prevent problems with time, it is highly recommended:
+    a) Set CACHE MySQL to GMT timezone
+    b) Set C/en_US locale
+
+DATABASES.
+=========
+ * MSSQL (Microsoft SQL Server)
+    - The PDO(dblib) and mssql_* should not be used. The php driver is (5.2.4)
+    really ugly. It obtains whole result dataset in internal buffer. 
+    - The PDO(ODBC) driver works correctly.
+
+ * ODBC
+    - ODBC have some problems as well (both PDO and odbc_* versions):
+     + It crashes when executed using mod_php, but works from php_cli
+     + While executed with php_cli, the php is hang on exit
+    this have been solved by 
+     + using apache 2.2.6, instead of 2.0.x
+     + removing -fPIC compilation flag
+     + compiling into the php only odbc, pdo and mysql DB modules
+   - Still there are in some circumstances quite strange behavior. The 
+   'query' request could fail with error code '0' or just complaining what
+   it could not prepare SQL request. 
+     + This is a bug in PhP odbc(PDO/non-PDO) driver or in it interaction with
+     FreeTDS odbc driver.
+     + The problem looks to arise when a single connection tries to open
+     second result set (two parallel queries exists) to the database.
+     + Please, note that the following would trigger a error:
+        while () {
+	    $res = $odbc->Query();
+	}
+    and this not (since, in the first case connection closed after another is
+    openned):
+        while () {
+	    $res = NULL;
+	    $res = $odbc->Query();
+	}
+     + The problem is handled in database.php by converting resultsets to the
+     arrays. We expect what all big queries are executed with Prepare.
+
+
+MULTIPLE SETUPS
+===============
+ To use multiple configurations with single code base, it is necesary to
+ enable "$SETUP_MULTI_MODE = true;" in the configuration.
+ Afterwards, it is possible to specify required setup with
+ a) '?setup=<setup_name>' - in the browser
+ b) 'php -- -setup <setup_name>' - in scripts
+

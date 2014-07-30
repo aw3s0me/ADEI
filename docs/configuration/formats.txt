@@ -1,0 +1,93 @@
+Common Options
+===============
+ - title [string<locale>]
+    Format title
+    
+ - handler [class] =CSV=
+    ADEI class implementing format support.
+    Example: CSV, EXCEL, ROOT
+    
+ - filter [custom]
+    This instructs to filter output using described application (accepts
+    source data on standard input and outputs filtered result on standard
+    output). The followin associative array describes filter behaviour:
+
+    * app [path]
+	Application Name
+    * extension [string]
+	Default extension of produced file
+    * joiner [boolean]
+	This flags informs if application is capable of joining of multiple
+	logging groups (called blocks in this context).
+    * groupmode [boolean]
+	This flag informs if application should be executed for each group
+	(block) separately (true) or blocks should be queued to the application
+	standard input one after another (false).
+	
+    * opts [string]
+	Application options. Few parameters and special syntax could be used
+	to provide application with information on current context.
+	Syntax constructs:
+	  @PARAMETER@
+	    Parameter which will be set according to current context
+	  ?{cond?true_expr:false_expr} 
+	    Depending on 'cond' condition will use 'true_expr' or 'false_expr'
+	    expressions in place of construct.
+
+	Supported parameters:
+	  @TMPFILE@ 		- file to use for temporary output
+	  @BLOCK_NUMBER@	- position of current group(block) in sequence
+	  @BLOCK_TITLE@		- title of current log group (block)
+	  @EXPECTED_BLOCKS@	- expected number of log groups in complete 
+				output
+
+	Application specific parameters:
+	  @ROOT__COMBHIST@	- true if combined histogram should be 
+				generated for ROOT output
+ 
+CSV Options
+===========
+ - separator [string] =,=
+    Field separator in CSV file
+
+ - date_format [string] =d-M-y H:i:s=
+    Desired date format
+
+ - accept_null_values [boolean]
+    Instructs CSV handler to represent NULL values using empty string. 
+    Otherwise, the default null value will be used.
+
+Excel Options
+=============
+ - date_format [string] =d-M-y H:i:s=
+    Desired date format
+    Example: DD.MM.YYYY hh:mm:ss
+
+ - date_width
+    Maximal date string width in specified 'date_format' format
+
+ - subsec_format [string]
+    Desired date format with subsecond precision
+    Examples: 
+	DD.MM.YYYY hh:mm:ss.000000;@ (supported only by OpenOffice)
+	DD.MM.YYYY hh:mm:ss.000;@
+	text(format)
+	
+ - subsec_width
+    Maximal date string width in specified 'subsec_format' format
+    
+ - value_format [string]
+    Desired formats for values
+    Example: 0.0000E+##
+    
+    
+Labview Options
+===============
+ - type [enumeration<TDMS,ARRAY,STREAMARRAY>]
+    Required output format
+
+ - big_endian [boolean]
+    The big-endian output is required
+
+ - buffer_size [integer]
+    Specifies maximal buffer size, and, thereby defines TDMS segment size

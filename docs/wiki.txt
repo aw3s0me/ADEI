@@ -1,0 +1,40 @@
+ADEI Infomation
+===============
+    Version: [version]
+
+Links
+=====
+    [link(db_server=autogen&db_name=minutely&db_group=default&window=0)]Temperatures[/link]
+
+Preview images
+==============
+    [preview(db_server=autogen&db_name=minutely&db_group=default&width=120&height=80)]
+
+    Linked preview:
+    [preview(db_server=autogen&db_name=minutely&db_group=default&width=120&height=80),link]
+    
+    Preview for last hour but link on full data set:
+    [preview(db_server=autogen&db_name=minutely&db_group=default&window=3600&width=120&height=80), link(db_server=autogen&db_name=minutely&db_group=default&window=0)]
+
+    Linked preview of all registered groups:
+    [grouplist(width=320&height=240)]
+    
+Channel Lists
+=============
+    [channels_by_group]
+    [channels_by_name]
+
+
+Default Markup
+==============
+    [b]Bold[/b]
+    [i]Italic[/i]
+    [u]Underlined[/u]
+    
+    !This is a Header
+    !!Second level header
+    
+    [[New Page]] - Internal Link
+    [url="http://somewhere.org"]External Link[/url]
+    [img]http://somewhere.org/image.png[/img]
+    

@@ -1,0 +1,27 @@
+.header {
+   color: 		#000055;
+   background: 		#E0E0E0;
+   border: 		1px solid #002D27;
+   margin-left: 	0px;
+   margin-right: 	0px;
+   padding: 		0px;
+   font-weight: 	bold;
+   text-align:		left;
+   height:		50px;
+   
+   background:		#005D57;
+/*   background: 		url(test.png) #005D57 no-repeat;*/
+}
+
+
+.header .title {
+    color:		#D78740;
+}
+
+.header .module_link {
+    color:		#E5E5E5;
+}
+
+.header .module_link_current {
+    color:		#FF8700;
+}

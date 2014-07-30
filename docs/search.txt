@@ -1,0 +1,58 @@
+Fomat of Search String
+======================
+ Basically, a search string consists of four components:
+ a) the first component defines type of search (i.e. item search, channel value 
+ search, datetime search)
+ b) second component provides some options (i.e. exact match)
+ c) the second and third are module dependent and containing search string
+ and additional limits.
+ 
+ - Format:
+	 [module specification] [global flags] <search string> [limits]
+
+
+Module Specification
+====================
+ {module_name(opt1=value1,opt2=value2),another_module(...)}
+ 
+Global Options
+==============
+ [option1,option2]
+ 
+ - Options
+    =		Exact match
+    w		Word match
+    ~		Fuzzy match
+
+Limits Specification
+===================
+ limit1: limit string limit2: limit string 
+ 
+Search String Formats
+=====================
+ Title search (Item, Control, ...)
+ ---------------------------------
+     word1 word2 "phrase n" /regexp/
+
+ - Match Modifiers
+    ~ word			- fuzzy match, part of a word could be matched
+    = word			- full match, only whole words are matched
+ By default on search string "sin" the words "sin" and "sinus" will be matched
+ but "cosinus" - not. However, if fuzzy search is given "~sin", the cosinus
+ will be matched as well. If full match is required "=sin", only "sin" will
+ be matched and nothing else.
+	
+ - Word rating modifiers  
+ Certain modules may use ratings to indicate match quality.  The rating range
+ is limited to [0,1]. By default if several words are specified in row, the
+ ratings are multiplied. Example:
+    word1 [0.70] word2 [0.30] word3[1]
+ will produced integrated rating of '0.21'. However, the few unirary and binary
+ operations could be used to adjust rating computations ([word] is a rating of
+ word/phrase 'word')
+    ! word 		The resulting rating will be (1-[word1])
+    (word1|word2)	The maximal rating among listed words
+    + word		All ratings below 1 will be cat to 0
+    - word		All non-zero ratings will be cut to zero, zero rating
+			will be replaced with 1
+    

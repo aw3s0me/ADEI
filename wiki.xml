@@ -1,0 +1,144 @@
+<!--<<>><pages>
+<page id="0" title="">[[Main Page]][br]
+[[Help]][br]
+</page>
+<page id="1" title="Main Page">!ADEI - Advanced Data Extraction Infrastracture
+![version]
+
+
+ Dear user, welcome to the Advanced Data Extraction Infrastructure! The ADEI is loaded and ready to work. Please, click on &amp;quot;Data Source&amp;quot; popup on the left sidebar and select the data source and time interval. Alternatively, you could use a pulldown menu on the top of sidebar.
+
+
+Navigation trough the data is feasible with mouse. Please, press and hold left mouse button to select region. Then click on the arrow button to zoom inside. The mouse wheel could be used to shift current window left.
+
+
+To download selected data open 'Controls' popup and choose &amp;quot;Export&amp;quot; tab. You will be able to get the data in the multiple supported formats. Please, Be patient, the preparation of data may take a while.
+
+
+To find more information about ADEI system and report bugs, please, visit our home page at [url]http://adei.info[/url].
+
+
+!!Data Overview
+[[Channel List]] - List of all available channels alphabetically[br]
+[[Minutely Channel List]] - List of all available channels in minutely group of autogen[br]
+[[Group List]] - List of all available channels by group[br]
+[[Graph Preview]] - Preview charts of available groups[br]</page>
+<page id="2" title="Help">!This is a Header
+!!Images
+[img]http://www.rosalux.de/cms/uploads/pics/gnu.png[/img]
+
+
+!!Links
+An internal link to this Wiki: [[New Page]]
+(a red link means site is empty, but created)
+
+
+An internal link to this Wiki: [[Help]]
+(a blue link means site is not empty and created)
+
+
+An external link [url]http://www.pburkhalter.net[/url]
+
+A [url=\&amp;quot;http://www.pburkhalter.net\&amp;quot;]external[/url] link to the same destination
+
+An [url=\&amp;quot;http://www.pburkhalter.net\&amp;quot;][img]http://www.pburkhalter.net/images/external_image_link.png[/img][/url] to the same 
+destination
+
+
+!!Formating
+[b]Bold[/b][br]
+[i]Italic[/i][br]
+[u]Underlined[/u][br]
+
+!!Enumeration
+* banana
+* apple
+* kiwi
+
+
+!!Preview
+[preview(db_server=autogen&amp;amp;db_name=minutely&amp;amp;db_group=default&amp;amp;window=0&amp;amp;width=120&amp;amp;height=80), link]
+
+
+
+{| border=\&amp;quot;1px\&amp;quot;
+Cell A || Cell B
+|-
+Cell C
+[br] 
+Multiple lines || Cell D
+|}
+
+
+[hr]
+
+
+[include(Main Page)]
+</page>
+<page id="6" title="Channel List">!Channel List | [[Main Page]]
+
+[channels_by_name]
+
+return back to [[Main Page]]</page>
+<page id="7" title="Group List">!Channel List | [[Main Page]]
+
+[channels_by_group]
+
+
+Return back to [[Main Page]]</page>
+<page id="5" title="All Groups">!ADEI - Advanced Data Extraction Infrastracture
+![version]
+
+
+ Dear user, welcome to the Advanced Data Extraction Infrastructure! The ADEI is loaded and ready to work. Please, click on \&amp;quot;Data 
+Source\&amp;quot; popup on the left sidebar and select the data source and time interval. Alternatively, you could use a pulldown menu on 
+the top of sidebar.
+
+Navigation trough the data is feasible with mouse. Please, press and hold left mouse button to select region. Then click on the 
+arrow button to zoom inside. The mouse wheel could be used to shift current window left.
+
+To download selected data open \'Controls\' popup and choose \&amp;quot;Export\&amp;quot; tab. You will be able to get the data in the multiple 
+supported formats. Please, Be patient, the preparation of data may take a while.
+
+To find more information about ADEI system and report bugs, please, visit [url=\&amp;quot;http://dside.dyndns.org/adei\&amp;quot;]project home 
+page[/url].
+
+!!Data Overview
+[[Channel List]] - List of all available channels alphabetically
+[[Group List]] - List of all available channels by group
+
+
+!Server: Signal Generator
+
+[preview(db_server=autogen&amp;amp;db_name=minutely&amp;amp;db_group=default&amp;amp;window=0&amp;amp;width=240&amp;amp;height=160), 
+link][preview(db_server=autogen&amp;amp;db_name=minutely&amp;amp;db_group=default&amp;amp;window=0&amp;amp;width=240&amp;amp;height=160), 
+link][preview(db_server=katrin&amp;amp;db_name=hauptspektrometer&amp;amp;db_group=0&amp;amp;window=0&amp;amp;width=240&amp;amp;height=160), link]
+
+
+
+
+
+
+
+
+
+
+</page>
+<page id="10" title="Graph Preview">!Data Preview | [[Main Page]]
+
+[grouplist(width=320&amp;amp;height=240)]
+
+
+Return back to [[Main Page]]
+
+
+</page>
+<page id="3" title="New Page">...</page>
+<page id="4" title="Main Page1">...</page>
+<page id="8" title="Minutely Channel List">!Channel List of autogen/minutely | [[Main Page]]
+
+[channels_by_name(db_server=autogen&amp;amp;db_name=minutely)]
+
+return back to [[Main Page]]</page>
+</pages>
+<<>>-->

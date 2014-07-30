@@ -1,0 +1,17 @@
+Checking Connection
+===================
+ tsql -H 192.168.8.6 -p 1433  -U souren -P '$souren$' 
+
+    SELECT zeit FROM IPEProfibusPXIDevice1
+    GO
+
+Adding ODBC source
+===================
+# odbcinst -i -d -f tds.driver.template 
+# odbcinst -i -l -s -f tds.mssql_source.template
+
+PDO Connection
+==============
+ * Trough data source
+    $dbh = new PDO("odbc:labview", "souren", '$souren$');
+ * Passing server information

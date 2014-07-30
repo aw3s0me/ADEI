@@ -1,0 +1,43 @@
+Browser Specific
+================
+ Opera (9.25): 
+    - Slow JS script handling: Selection, Window movements
+    - Centring for popup labels is not working
+    - Status-bar border is rendered wrong. This is fixed in version 9.27
+
+ IE6:
+    - If legend (and other dialog) window is resized to very small size, IE6
+    hides end part of titlebar background.
+    - Then dialog window is over 'SELECT' form items, it's edges are damaged.
+    This is because in IE6 the z-index is ignored for 'SELECT' and the used fix
+    utilizes iframe to get rid of. But if iframe would be made to big it will
+    prevent dialog resizing. So the edges are sacrificed to the resizing.
+	+ Still the bug in some conditions (not tracked at the moment) still
+	introduces itself in full his mighty.
+    - There is some bug with determining offset(Width,Left,Height,Top), which
+    results in missposition elements on few pixels. To neglect effects, you
+    could edit adei.js/UpdateModuleGeometry and substract few pixels in w/h
+    calculation. However, could be just ignored.
+    - IE6 doesn't support sibling selectors in CSS, which prevents some
+    optimizations of elements placement.
+
+ IE:
+    - IE ignores CSS construct ':before { content: "{" }. Therefore, there is
+    no better then color indictation of the currently selected source module.
+    - Sometimes IE resizes Legend dialogs in that way that its width slightly 
+    shorter than necessary and therefore the vertical scrollbar is appeared.
+    - When the 'SELECT' element have big titles which are not fitting in
+    the allocated space, the good browsers (Gecko, Safari, Opera) on 'select' 
+    action resize popup window to full width. The IE doesn't. So only the 
+    starting part of the titles is visible.
+    - Menu is opening under dialog windows due to the invalid z-index handling
+
+ KONQ3:
+    - Not working at all
+    - Konqueror 3 is reported to not support mouse wheel events
+ 
+
+Server Side
+===========
+ - Please, look in 'mysql.txt' and 'mssql.txt' for database specific problems
+ and required fixes.

@@ -1,0 +1,4 @@
+- MASK is not giving sequence
+- MASK's supplied to CACHE, should be created by CACHE::CreateMask, otherwise,
+  virtual readers would be confused
+- AXIS '0' references default axis

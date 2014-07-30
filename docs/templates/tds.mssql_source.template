@@ -1,0 +1,7 @@
+[labview]
+Driver		= FreeTDS
+Description	= LabVIEW Database
+Trace		= No
+Server		= 192.168.8.6
+Port		= 1433
+Database	= womisa

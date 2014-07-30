@@ -1,0 +1,87 @@
+#! /bin/bash
+
+PKGNAME="adei"
+RDIR=~/releases
+
+
+if [ ! -d $RDIR ]; then
+    if [ -a $RDIR ]; then
+	echo "Release directory isn't a directory!"
+	exit
+    fi
+    mkdir -p $RDIR
+fi
+
+version=`cat VERSION | perl -e "while (<STDIN>) {  if (m/(\d+\.\d+(.\d+)?)/) { print \\$1; } }"`
+cvs=`cat VERSION | perl -e "while (<STDIN>) {  if (m/\d+\.\d+(.\d+)?.*(cvs|CVS|Cvs)/) { print 'cvs'; } }"`
+if [ "$cvs" == "cvs" ]; then
+    suffix="`date +%y%m%d.%H`"
+else
+    suffix="$version";
+fi
+rname="$PKGNAME-$suffix";
+
+if [ -d $RDIR/$rname ]; then
+    rm -rf $RDIR/$rname
+fi
+mkdir -p $RDIR/$rname
+if [ ! -d $RDIR/$rname ]; then
+    echo "Can't create directory!!!"
+    exit
+fi
+cp -a `ls -d * .htaccess | grep -v tmp` $RDIR/$rname
+mkdir $RDIR/$rname/tmp
+chgrp apache $RDIR/$rname/tmp
+chmod 0775 $RDIR/$rname/tmp
+(
+    cd $RDIR/$rname
+
+    make
+    sed -i -e 's/^\(\s*$ADEI_RELEASE\s*=\s*\).*$/\1true;/g' config.php
+
+    rm config.actual.php
+    rm config.override.php
+    make -C apps/csv2root clean
+    make -C apps/mod_root2 clean
+    
+    rm -rf *.diff
+    
+    rm -rf tmp/*
+    rm -rf test/tmp/*
+    rm -rf test/phptests
+
+    rm -rf "{arch}"
+    rm -rf `find . -name .arch-ids`
+    rm -rf .bzr
+    rm -rf .bzrignore
+    
+    rm -rf misc
+
+    rm -f copy copy_*
+
+    find . -name '*\.~[[:digit:]]~' -delete
+
+    find includes -name *.diff -delete
+    find includes -name *.orig -print0 | xargs -0 /bin/rm -rf
+    find includes -name '*\.[[:digit:]]\.[[:digit:]]' -print0 | xargs -0 /bin/rm -rf
+
+    cd setups
+    for setup_name in `ls | grep -Ev "^(all|autogen)$"`; do
+	sname="$PKGNAME-$setup_name-$suffix";
+	tar cjf $sname.tar.bz2 $setup_name
+	rm -rf $setup_name
+#	scp $sname.tar.bz2 csa@dside.dyndns.org:/home/csa/public_html/files/adei/
+    done
+    cd ..
+    
+    mv -f setups/*.tar.bz2 $RDIR
+#    rm -rf setups/*
+
+    cd ..
+    if [ -a $rname.tar.bz2 ]; then
+	rm -f $rname.tar.bz2
+    fi
+    tar cjf $rname.tar.bz2 $rname
+    rm -rf $rname
+#    scp $rname.tar.bz2 csa@dside.dyndns.org:/home/csa/public_html/files/adas/
+)

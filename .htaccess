@@ -1,0 +1,26 @@
+Options  +FollowSymLinks
+
+AddType text/xml xsl
+
+<Files "index.php">
+    php_flag short_open_tag On
+</Files>
+
+php_value memory_limit "1024M"
+php_value max_execution_time 300
+php_value allow_url_fopen "On"
+
+<Files ~ "(auth\.php$)">
+    AuthType        Basic
+    AuthName        "ADEI Authentication"
+    AuthBasicProvider file
+    AuthUserFile    /var/www/localhost/htdocs/adei/admin/.htpasswd
+    Require         valid-user
+</Files>
+<Files ~ "(auth2\.php$)">
+    AuthType        Basic
+    AuthName        "ADEI Authentication"
+    AuthBasicProvider file
+    AuthUserFile    /var/www/localhost/htdocs/adei/admin/.htpasswd
+#    Require         valid-user
+</Files>

@@ -1,0 +1,177 @@
+Minor improvements
+==================
+ - Support for multi-column formatting in WiKi (good alignment modes)
+ - Support image-maps in WiKi
+ - Datetime picker is ugly, find replacement (dhtmlx). Besides, Datetime picker 
+ produces current time in local timezone. Should be UTC instead. Requirements:
+    a) Allow easily selection of intervals from - to, like some air companies do
+    b) Straight forward way of selecting time (without need to update date afterwards)
+    c) Open correct month/year page, not current one
+ - Y-value precision of big numbers under high zooms (500.000000000001) should
+ be implemented using string arithmetics. Negative numbers should be considered,
+ see implementation at php code.
+  a) window.js/SetCustomAxis/*.toPrecision - increase from 7 to something....
+  b) implement computations using string arithmetics
+ - The detector name should appear on the plot after ASEC: We can implement it 
+ with configurable callback to display information.
+ - Allow to request data from cache in get_data service. Based on this do the 
+ joining of archived databases to present continious data flow.
+ - Allow limited enforcement of resolutions in graph and views (both increasing
+ and decreasing)
+ - At the moment we are reseting the mask/experiment/window properties after 
+ LogGroup have been changed. We should try to use current 
+    a) window/interval if they are inside the range.
+    b) Preserve "all" mask (and named masks as well if they exists for both groups)
+
+Version 0.0.9 (Custom visualization and export)
+=============
+ A. Implement interface to provide custom visualization modes 
+  - Port RRD custom visualization mode
+  - Visualization of time series in % relative to mean value estimated by 
+  previous hour (resolution interval).
+  - Plots including simple statistics: mean, variance, relative arror
+  - In single channel mode, draw MIN-MAX-MEAN-?
+ B. PNG export customization
+
+Version 0.0.10 (Persistent customizations)
+==============
+A. Basic user support
+B. Metainformation caching
+ 1. Cache all names in ADEI database
+ 2. Cache axes
+ 3. Allow editing of the names
+C. MASK/Experiment Editor
+ 1. Include Save Mask, Save Time Window buttons (We need to update SOURCE and 
+    MENU if new mask/experiment is added)
+ 2. Mask / Experiment editor. It should be allowed to delete mask, alter its
+    name, view included items (possibly allowing deletion)
+ 3. Support for mask properties, allowing selection of special ways of display
+
+Version 0.0.11 (Interface improvements)
+==============
+A. Better Graph Navigation
+ - Activate / deactivate Axis, do mouse zooming only on active ones
+ - Move current window using keyboard keys
+ - Move left-rigth/up-down then dragging on the axis. 
+ - Near borders of graph remove the control from the croper, change pictogram 
+ to 'hands' and allow moving source_window currently on display.
+ - Shading will redrawing
+ - If we had selcted an area of graph and afterwards have adjusted the 
+ configuration in sidebar, the selection is canceled. It would be nice 
+ to check if new values are within the currently displayed window and, 
+ if so, adjust selection instead.
+B. Legend
+ - Information about clicked location
+ - Add "Show Only", "Remove" buttons.
+C. Navigation Bar
+ - Allow selection of navigation modules. The default "navigator" illustrates
+ recordings density (red - green?), with special color highlight the places 
+ where are distance between points exceeding specified threshold (missing
+ data).
+ - Use the cropper for navigation, but fixed width (defined by currently 
+ selected window) and always visible
+D. Interface improvements
+ - Hide some sidebar/control tabs depending on the selected page
+
+VERSION 0.0.12 (Analysis Interface)
+==============
+A. DVIN style analysis interface
+ - Using selection interface export the data into the analysis module 
+ using specified resolution.
+ - Do  operations on exported time series: add, substract, and multiply 
+ by constast
+
+VERSION 0.0.13 (Views)
+==============
+A. Interface
+ - Visualize Multi-dimensional time series based using video playback. 
+ In appropriate box of left pane, we will have a picture and slider 
+ allowing navigation. About 10-50 positions distributed uniformely 
+ over the selected time. On each position the first item after 
+ time is displayed. The timestamp is shown on as well.
+B. Implementations
+ - Displacement search view
+ - Integral under selected part of graph
+
+VERSION 0.0.14 (Tagging)
+==============
+ - Using selection add tags. Tag consists of type (a value from predefined 
+ list), and custom text. Examples of types: Comment, Invalid data, Recache, 
+ etc.
+ - Some marks then may be used by ADEI system scripts to do some maitenance.
+ For example, - recaching marked segments. Or more complex variant, - the 
+ marked segments should be processed with certain filters (and hence re-
+ cached aferwards). For this case, we should be able to provide some 
+ parameters with mark type as well.
+ - Integrate tagging module with search engine. Additionaly, it should be
+ possible to find all tags for the data currently on display.
+
+Version 0.0.15 (Search improvements)
+==============
+ - Search for intervals where conditions (<>=) are met (only aggregated 
+ caching tables are used)
+ - Autogenerate experiments by thresholding some of the channels (using
+ specified above feature)
+ - In case of item search, add addition button to add found item into the 
+ virtual tree.
+ - "Jan" find all Januaries containing data and auto-select the current 
+ one
+ - Buttons to Open/Close result descriptions and module results
+
+---------------------------------------------------------------------------
+
+VERSION 0.1 (Multitouch)
+===========
+ 1. Finish multitouch interfaces for iPhone / iPad / Android versions
+
+VERSION 0.2 (Aggregation and Caching)
+===========
+ 1. Split large groups into the multiple cache tables. Due to colum limit in the
+ mysql (other databases are limited as well), the maximum number of items per
+ group is currently limited by ~500 (assuming 3 cache columns per channel).
+ 2. Interface for managing custom caches. For instance,
+  - MEDIAN style approach. On each smalles caching interval it is MEDIAN. Then
+  the middle of this intervals select to represent value of next caching 
+  level. And so on.
+  - ALTERNATIVE MEAN could be over items, or over length (considering that the 
+  old value is valid until next one).
+ 3. Tere is different types of channels: analog, count rate, digital (flags), 
+ direction. This data should be aggregated and displayed
+ in different ways. For example, 
+    a) 355grad and 5grad should not be averaged to 180, but to 0
+    b) digital flags could not be averaged at all.
+ 4. Support for Subcaches (if density is above threshold use apporpiate 
+ subcache). Join current table and subcache to automatically sort.
+ 5. Support for 'omit_raw_cache' option (using READER instead of raw cache table)
+ Intended to reduce caching table size if connection to data source is reliable
+ and it is not overloaded
+
+Version 0.3 (Status Display)
+=============
+1. Control infastracture
+ - Finalyze checking of values prior to setting setpoints
+ - Implement VirtualControlGroup joining specified control groups, to 
+ refer from ExpressVI
+2. Real-time infrastructure
+ - CACHE updating daemon and check renewals
+ - Real-time display of the last 100-200 records [separate window]
+3. GUI for fast prototyping of status displays
+
+Version 1.0 (Code style)
+===========
+ 1. require, include_once => $ADEI->RequireClass(array(), overridable)
+ 2. globals => $ADEI->GetGlobalOption
+ 3. Remove references(&) from all class variables
+ 4. Use static ADEI calls where possible
+ 5. Standartize error handling in JS scripts: Throw from async parts? And call 
+ adeiError in all others? Use "translate" calls everythere.
+
+Chili
+=====
+ - Better keep not 2 , but 3 numbers after comma in E format
+ - no vsegda nugno sokhranyat rezultati; delat nebolshie kommentarii; chto bi 
+ vozvrashatsya pozdnee; sravnivat raznie sobitiya; no nikakikh protokolov ne 
+ ostaetsya; vspomni hbook-I; ves analiz ostavalsya; dage mogno bilo povtgorit 
+ posledovatelnost deistvij.
+
+ 

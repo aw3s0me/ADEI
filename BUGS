@@ -1,0 +1,89 @@
+Important
+=========
+ ! downloads_check.php - doesn't handle correctly failed downloads. We should
+ do something about it.
+ ! For MSSQL column and table quotes should be changed from " to []. Yes, for
+ this we should introduce opening and closing quote :(
+ ! Prevent entering custom plot mode if not supported
+
+Cache Engine
+============
+ - We are currently just skipping databases which are failed to connect to the
+ data source (request.pph/GetSources/catch block). In case if we are caching the
+ data this prevents administrator from getting information about the problems.
+ - If we change use_subsecond flag without dropping the cache, the ADEI will
+ report channel inconsistency (not clarifying the issue). Since, we will get
+ two extra columns in the caching table. The proper error message should be
+ reported in this case.
+ - At the moment, We can't really use non [\w\d_] symbols in gids if md5 
+ postfixes are switched off. Otherwise, this symbols are stripped from the 
+ postfixes (for the sake of table names) and then the check for cached tables
+ is failing (it reconstructs gid basing on the table names). Some, other things
+ may fail as well.
+ For the check, we can try to ignore the inappropriate symbols (only if md5 is
+ switched off). So, the stripping should be performed by caching code.
+ - In the non-0 caching modes, the last interval is not displayed. Why cache is
+ not returning the last point?
+
+VIEWS
+=====
+ - Support non-fitting timestamps in the scatter plot with resolution 0.
+
+Filters
+=======
+ - While requesting last record (or potentially several last entries), it is
+ possible to get empty response if the last record while be rejected by the
+ configured filters. Iteratively increase limit? When fixed and may be 
+ universally used, shall we introduce a 'limit' option instead of making 
+ complex 'window' parsing?
+
+Virtual
+=======
+ - Support "__" in group names in SourceTree
+
+Download Manager
+===============
+ ! Download manager does not respect "setup"
+ ! Show details of Downloads Manager button while not work if data is not 
+ from default setup.
+ ! download_manager.js is updating too often (due to adei.updater.Update()
+ calls). This should be somehow fixed. As well it refers dlmanager.Request()
+ which uses variable name set in correspndent module. This is completely 
+ insane and should be fixed.
+
+ZEUS Reader
+===========
+ ! Interlock between Full Backup and other calls in ZEUSReader. This is
+ critical. If not prevented, the cache may start while configuration is
+ partially dropped and not yet reloaded. This may result in rejecting 
+ some data vectors because of invalid number of records, etc.
+
+RRD Reader
+==========
+ ! Axes are not always cleaned when changing to different group, 
+ with RRD source 
+ - Do not list empty groups in RRDReader
+
+Web Frontend
+============
+ - Rising memory consumption with Firefox (and I guess other browsers)
+ - Passing away pointer to "this" in JS-constructors may be problematic (no 
+ errors, but this will be an incorrect "this").
+ - Chromium and arora doesn't respect disabled states while setting initial 
+ choices of select (scatter plot options). Just force proper selection.
+ - Opera/Chrome do not resize source popup properly on axes update. If width
+ of axes tab grows, it just gets out of popup borders.
+ - The following case: We made a selection and opened one of the popups. The
+ forced graph update have canceled selection. However, the selected values
+ are still present window configuration dialog.  Should we cancel them? 
+ Or should we re-draw selection after update?
+ - At the moment on the browser window resize the graphic is not autoupdated,
+ we probably should force update.
+ 
+Graph
+=====
+ - Prevent complete shadowing (filling) of screen with a single chart in the 
+ multiaxis mode. Try to find such axes and fix the problem by stacking them 
+ vertically and increasing axis range.
+ - Logarithmic axes has problems with drawing 0 values, - where should we
+ start?

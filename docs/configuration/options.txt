@@ -1,0 +1,89 @@
+Common Options
+==============
+ - optimize_empty_cache [boolean]
+    If enabled, will prevent creation of aggregating CACHE records
+    without any actual data records (i.e. over time interval when
+    the data was not recorded) thus reducing the CACHE table size.
+ 
+ - fill_raw_first [boolean]
+    Instructs CACHE engine to file 'cache0' (raw data) tables before
+    processing aggregating tables. This could drasticaly improve 
+    performance in the cases when the data source is very slow in performing 
+    selective data requests (for example, missing or invalid indexes in
+    relational databases)
+    
+ - maximal_allowed_gap [integer] {seconds}
+    Informs ADEI subsystems about maximal expected distance between sequential
+    data records. If there are bigger intervals without any data recorded, 
+    they should be reported as problematic.
+    
+ - min_resolution [integer] {seconds}
+    Will prevent creation of CACHE tables with resolutions bellow
+    specified
+ 
+ - date_limit [date<ISO>], [date<ISO>, date<ISO>]
+    Limits the time series to the specified date/time interval only. If single
+    date value is specified, it defines beginning of the interval. Otherwise,
+    array with two values defining the beginning and the end should be 
+    specified.
+    
+ - resample [double] {seconds}
+    Allows to resample source data before caching it in cache0 (raw) tables.
+    This is intended to handle data sources with really intensive data rates
+    if actually such inensity is not required.
+    This option should be used with caution. Normally filling of raw cache is
+    done in small iterations (min_resolution) and there could be extra points
+    on edges. Even if 'fill_raw_first' is switched on, an extra points will 
+    arise due to the caching application restarts.
+
+    This means what normally minimal cache level should be significantly 
+    bigger than resampling rate.
+
+ - ignore_invalid_data [boolean]
+    Just silently ignore (skip) invalid data records instead of throwing 
+    exception to notify operator.
+
+ - overcome_reader_faults [boolean]
+    In this mode the CACHE will try to fullfil request even if connection to 
+    the data source is failed.
+ 
+ - use_cache_reader [boolean]
+    In this mode teh CACHE will avoid access to the data source as much as
+    possible.
+    
+ - use_md5_postfix [boolean]
+    This instructs ADEI to create md5 checksums for naming of caching table
+    instead of human readable names. Should be used if server/database/group
+    names are using special symbols or too long.
+    
+ - ignore_subseconds [boolean]
+    Allows CACHE to round all timing information to seconds
+
+ - omit_raw_cache [boolean]
+    This is not implemented at the moment, but intended to prevent caching 
+    raw data. 
+
+ - null_value [double]
+    Numeric value which should be used instead of missing (NULL) values in
+    numeric context.
+
+ - cache_config
+ - root_database
+ - backup 
+ - graph_interpolate [boolean]
+ - optimize_time_axes [boolean]
+ 
+ 
+DBReadeer Options
+=================
+    
+TESTReader Options
+==================
+ - period [integer] {seconds}
+    Sampling rate
+    
+ - items [custom]
+    Array of items descriptions, each item is associative array containing
+    * name: item name
+    * func: function defining dependency of '$y' from '$x' (example: $y = $x)
+    * noise: random noise (in percents [0-1])

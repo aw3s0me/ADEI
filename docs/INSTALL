@@ -1,0 +1,87 @@
+REQUIREMENTS
+============
+ - Apache WEB server
+    Required modules: mod_php, mod_rewrite, mod_proxy, mod_proxy_http
+ - MySQL 5.0 (or later)
+ - PhP 5.2.5 (or later)
+    PhP modules: zlib, zip, mysql, pdo, odbc, json, nls, xml, session, sockets, 
+    imagick, simplexml, gettext
+    PEAR modules: Spreadsheet_Excel_Writer
+    PhP applications: jpgraph
+    
+ - READER requirements
+    + MSSQL reader: FreeTDS library, ODBC php module (please, consult mssql.txt
+    for mandatory patches).
+
+ - ROOT Export:
+    + ROOT 5.17.05 or later (Actually the earlier versions will work if 
+    "TAxis::SetRangeUser" fix will be applied. The patch is available at 
+    http://dside.dyndns.org/projects/ ]
+    + Boost C++ Libraries 1.34 or later
+    
+ - Hardware:
+    + Ticks time class is only working on 64bit platforms
+    
+ Apache CONFIGURATION
+ --------------------
+ - It is good idea to allow overriding apache configuration in .htaccess files.
+ You will need to set 'AllowOverride' directive within apache2 configuration
+ for the ADEI directory.
+    AllowOverride All
+ 
+ PhP CONFIGURATION
+ -----------------
+ - The configuration of both mod_php (normally in /etc/php/apache2-php5/php.ini)
+ and command line client (/etc/php/cli-php5/php.ini) should be set.
+ 
+ - The php should ignore E_NOTICE (default behaviour). The E_NOTICE reporting
+ could be enabled in php.ini by "error_reporting = ..." statment. Set it to
+    error_reporting = E_ALL & ~E_NOTICE
+
+ - The short open tag "<?" should be enabled. Add
+    short_open_tag = On
+    
+ - If application is working with big amounts of data, you probably need to
+ increase maximal execution time of scripts (afterwards they are killed), and
+ maximum amount of memory script can utilize.
+    max_execution_time = 300
+    memory_limit = 1024M
+    
+ - Alternatively it is possible to set this values in .htaccess file. To do
+ so, the 'AllowOverride' directive within apache configuration should be set 
+ to 'Options' or 'All'.
+
+ JpGraph CONFIGURATION
+ ---------------------
+ - JpGraph requires 'arial.ttf' and other MS true type fonts for it operation.
+ By default it looks them in '/usr/X11R6/lib/X11/fonts/truetype'. 
+ The location could be adjusted in 'jpg-config.inc.php', 'TTF_DIR' variableÀ
+ 
+ - JpGraph sometimes reports errors (for example, arial.ttf not found error)
+ in a very strange manner: It prints incomplete PNG on standart output (even
+ if it is not asked for a graph yet or it should create a graph in a file).
+
+ FreeTDS CONFIGURATION
+ ---------------------
+ - The FreeTDS should be compiled with unixODBC and MSDBLib support. The TDS
+ version should be set to 7.0. The following configure line will do the job
+    ./configure --with-unixodbc=/usr --enable-msdblib --with-tdsver=7.0
+ a) You may need to correct the path where unixODBC is actually installed.
+ b) The FreeTDS version should mandatory set. You will get very strange effects
+ while it configured to other value (4.2 for example)
+
+ ODBC CONFIGURATION
+ ------------------
+  - For MSSQL Support:
+    a) create 'tds.driver.template' with following content
+	[FreeTDS]
+	Description     = v0.64 with protocol v8.0
+	Driver          = /usr/lib64/libtdsodbc.so.0
+    b) you may need alter driver path, to place libtdsodbc.so is actually
+    residing.
+    c) register driver in odbc
+	odbcinst -i -d -f tds.driver.template
+    
+ ADEI CONFIGURATION
+ ------------------
+  - 'tmp' directory should be writable by apache
