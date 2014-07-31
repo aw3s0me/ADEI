@@ -1123,7 +1123,8 @@ class CACHEDB extends ADEIDB {
       else $query .= "'$value'";
       
       //if($item != "auto_delete") $query .= ",";
-      if($item != "isshared") $query .= ",";
+      //if($item != "isshared") $query .= ",";
+      if($item != "setup") $query .= ",";
       else $query .= ")";
     }
     

@@ -74,6 +74,7 @@ class DOWNLOADMANAGER {
   }
 
   function AddDownload() {      
+    global $ADEI_SETUP;
     $user_info = $this->GetUserInfo();   
     if(!is_numeric($this->props['db_group'])) $db_group = " - " .ucfirst($this->props['db_group']);
     else $db_group = "";
@@ -119,7 +120,8 @@ class DOWNLOADMANAGER {
 	    "show_gaps" =>       $this->props['show_gaps'],
 	    "mask_mode" =>       $this->props['mask_mode'],
 	    "auto_delete" =>	 "true",
-      "isshared" => 0
+      "isshared" => 0,
+      "setup" => $ADEI_SETUP
 	    );      
     //$this->Logit(var_export($download_props,true));
     $this->cache->AddDownload($download_props); 
@@ -129,11 +131,28 @@ class DOWNLOADMANAGER {
   }
 
   function GetIp() {
-    if(getenv("HTTP_CLIENT_IP"))   $ip = getenv("HTTP_CLIENT_IP");
+    /*if(getenv("HTTP_CLIENT_IP"))   $ip = getenv("HTTP_CLIENT_IP");
     else if(getenv("REMOTE_ADDR")) $ip = getenv("REMOTE_ADDR");   
     else $ip = "Unknown IP";
     if($ip == "::1") $ip = "127.0.0.1";   
-    return $ip;
+    return $ip; */
+    $ipaddress = '';
+    if (getenv('HTTP_CLIENT_IP'))
+        $ipaddress = getenv('HTTP_CLIENT_IP');
+    else if(getenv('HTTP_X_FORWARDED_FOR')) //headers, can be spoofed
+        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+    else if(getenv('HTTP_X_FORWARDED'))
+        $ipaddress = getenv('HTTP_X_FORWARDED');
+    else if(getenv('HTTP_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_FORWARDED_FOR');
+    else if(getenv('HTTP_FORWARDED'))
+        $ipaddress = getenv('HTTP_FORWARDED');
+    else if(getenv('REMOTE_ADDR')) //returns proxy sometimes
+        $ipaddress = getenv('REMOTE_ADDR');
+    else
+        $ipaddress = 'Unknown IP';
+ 
+    return $ipaddress;
   } 
 
   function GetUserInfo() {
@@ -172,14 +191,22 @@ class DOWNLOADMANAGER {
     if(!$noresp)$this->Response();     
   }
   
-  function GetDownloads() {
+  function GetDownloads($isadmin = false) {
+    
     session_start();
     $sqlres = $this->cache->GetDownloads();    
     $user = $this->GetUserInfo();
     $ip = $this->GetIp();
     $download_list = array();
+    global $ADEI_SETUP;
     
-    while($row = mysql_fetch_array($sqlres)) {    
+    while($row = mysql_fetch_array($sqlres)) {   
+      if (!$isadmin) { //&& ('all' !== $row['setup'])
+        if ('all' == $ADEI_SETUP) {
+          continue;
+        }
+      }
+
       $download_props = array();
       $download_props['is_shared'] = $row['isshared'] ? "true" : "false";
       $download_props['is_user'] = $this->IsUser($row['user']); // if user

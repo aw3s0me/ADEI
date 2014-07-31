@@ -20,7 +20,7 @@ try {
       $dm->RemoveDownload();      
     break;
     case "dlmanager_list":      
-      CreateDownloadXml($dm->GetDownloads(), $target, $isadmin);
+      CreateDownloadXml($dm->GetDownloads($isadmin), $target, $isadmin);
     break;          
     case "dlmanager_run":
       $dm->DlManagerRun();
