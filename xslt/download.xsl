@@ -79,9 +79,7 @@
             <xsl:call-template name="downloads_header"/>
             <xsl:for-each select="download"> 
                 <xsl:if test="@is_shared = 'true' and @owner = 'false'">
-                    <xsl:call-template name="download_content">
-                        <xsl:with-param name="can_be_shared" select="1"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="download_content" />
                 </xsl:if>  
             </xsl:for-each>     
         </table> 
@@ -114,7 +112,9 @@
             <xsl:call-template name="downloads_header"/>
         <xsl:for-each select="download">
             <xsl:if test="@is_user != 'false' and @owner = 'true'">
-                <xsl:call-template name="download_content"/>
+                <xsl:call-template name="download_content">
+                    <xsl:with-param name="can_be_shared" select="1"/>
+                </xsl:call-template>
             </xsl:if>  
         </xsl:for-each> 
         </table>  
@@ -137,55 +137,47 @@
     <xsl:template name="buttoncontainer">
         <div class="buttoncontainer" borderwidth="0">
           <table cellspacing="0" cellpadding="0"><tr>
-        <td><div class="previewimg" title="Show graph" style="cursor:pointer;">
+        <td><div class="previewimg btnimg" title="Show graph" style="cursor:pointer;">
           <xsl:attribute name="onclick">javascrip:tooltip.Show(event,'<xsl:value-of select="@dl_id"/>')</xsl:attribute>
         </div></td>
-        <td><div class="infoimg" title="Show details" style="cursor:pointer" >
+        <td><div class="infoimg btnimg" title="Show details" style="cursor:pointer" >
           <xsl:attribute name="onclick">javascript:tooltipdet.Show(event,'<xsl:value-of select="@dl_id"/>', 'true')</xsl:attribute>
         </div></td>
-        <td><div class="downloadimg" title="Download file" style="cursor:pointer">
+        <td><div class="downloadimg btnimg" title="Download file" style="cursor:pointer">
           <xsl:if test="@status='Ready'">
             <xsl:attribute name="onclick">javascript:data_export.StartDownload('<xsl:value-of select="@dl_id"/>','<xsl:value-of select="@format"/>','<xsl:value-of select="@dl_name"/>','<xsl:value-of select="@ctype"/>')</xsl:attribute>
           </xsl:if>
         </div></td>
 
-        <td><div class="deleteimg" title="Delete download" style="cursor:pointer">
+        <td><div class="deleteimg btnimg" title="Delete download" style="cursor:pointer">
 
           <xsl:attribute name="onclick">
                     javascript:dlmanager.RemoveDownload('<xsl:value-of select="@dl_id"/>')
             </xsl:attribute>  
         </div></td>
           </tr>
-        <!-- <xsl:param name="can_be_shared" /> -->
-        <!-- <xsl:if test="$can_be_shared"> -->
-          <xsl:if test="../@islogged='true'">
+          <xsl:if test="../@islogged='true' and @is_user != 'false' and @owner = 'true'">
               <tr>
-                <td colspan="4">
-                    
-                  <!-- <xsl:attribute name="onmouseover">javascript:showText('is_shared<xsl:value-of select="@dl_id"/>', 'true')</xsl:attribute>
-                  <xsl:attribute name="onmouseout">javascript:clearText('is_shared<xsl:value-of select="@dl_id"/>')</xsl:attribute> -->
-                  <div style="float:right; margin-right:1px; width:20px;">      
-                <input type="checkbox">
-                    <xsl:attribute name="name">is_shared_cb<xsl:value-of select="@dl_id"/></xsl:attribute>
-                    <xsl:if test="@is_shared='true'">
-                        <xsl:attribute name="checked"></xsl:attribute>
-                    </xsl:if>       
-                    <xsl:attribute name="onclick">javascript:dlmanager.SetShared('<xsl:value-of select="@dl_id"/>')</xsl:attribute>
-                </input>
-                  </div>
-                  <div style="/*float:left;*/ text-align:left;">Is shared
-                <!-- <xsl:attribute name="id">is_shared<xsl:value-of select="@dl_id"/></xsl:attribute> -->           
-                  </div>
-              </td>
+                <td colspan="1"> 
+                    <input type="checkbox">
+                        <xsl:attribute name="name">is_shared_cb<xsl:value-of select="@dl_id"/></xsl:attribute>
+                        <xsl:if test="@is_shared='true'">
+                            <xsl:attribute name="checked"></xsl:attribute>
+                        </xsl:if>       
+                        <xsl:attribute name="onclick">javascript:dlmanager.SetShared('<xsl:value-of select="@dl_id"/>')</xsl:attribute>
+                    </input>
+                </td>
+                <td class="bg_cell" colspan="3">
+                    Shared     
+                </td>
+                 
+
               </tr>
           </xsl:if>
-      <!-- </xsl:if> -->
+
 
           <tr>
-            <td colspan="4">
-              <!-- <xsl:attribute name="onmouseover">javascript:showText('auto_delete<xsl:value-of select="@dl_id"/>')</xsl:attribute>
-              <xsl:attribute name="onmouseout">javascript:clearText('auto_delete<xsl:value-of select="@dl_id"/>')</xsl:attribute> -->
-              <div style="float:right; margin-right:1px; width:20px;">      
+            <td colspan="1">
                 <input type="checkbox">
                     <xsl:attribute name="name">auto_delete_cb<xsl:value-of select="@dl_id"/></xsl:attribute>
                     <xsl:if test="@auto_delete='true'">
@@ -193,13 +185,13 @@
                     </xsl:if>       
                     <xsl:attribute name="onclick">javascript:dlmanager.ToggleAutodelete('<xsl:value-of select="@dl_id"/>')</xsl:attribute>
                 </input>
-              </div>
-              <div style="/*float:left;*/ text-align:left;">
-                Auto delete
-                <!-- <xsl:attribute name="id">auto_delete<xsl:value-of select="@dl_id"/></xsl:attribute>  -->          
-              </div>
-
             </td>
+            <td class="bg_cell" colspan="3">
+                Auto delete     
+            </td>
+            
+
+
           </tr>
 
 
@@ -247,6 +239,7 @@
     <!-- <tr id=<xsl:value-of select="@dl_id"> > -->
     <xsl:element name="tr">
         <xsl:attribute name="id">dlrow_<xsl:value-of select="@dl_id"/></xsl:attribute> 
+        
         <td>
           <div>
         <xsl:value-of select="@user"/>

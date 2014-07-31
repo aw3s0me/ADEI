@@ -201,12 +201,11 @@ class DOWNLOADMANAGER {
     global $ADEI_SETUP;
     
     while($row = mysql_fetch_array($sqlres)) {   
-      if (!$isadmin) { //&& ('all' !== $row['setup'])
-        if ('all' == $ADEI_SETUP) {
+      //$ADEI_SETUP is in config.actual.php
+      if (empty($row['setup']))
+          throw new ADEIException(translate("Entry doesnt have setup value column %s", $row['dl_id']));    
+      if (($ADEI_SETUP != $row['setup']) && !$isadmin) 
           continue;
-        }
-      }
-
       $download_props = array();
       $download_props['is_shared'] = $row['isshared'] ? "true" : "false";
       $download_props['is_user'] = $this->IsUser($row['user']); // if user
@@ -250,8 +249,11 @@ class DOWNLOADMANAGER {
 
 	// if prepared file not found from server -> remove download.
       $file = $this->downloads_path."/".$this->Getfilename($download_props['dl_id']);
+
       if($download_props['status'] != "Queue" && !file_exists($file)) $this->RemoveDownload($download_props['dl_id'], 1);
-      else array_push($download_list, $download_props);
+      else {
+          array_push($download_list, $download_props);
+      }
     }
     return $download_list;    	
   }

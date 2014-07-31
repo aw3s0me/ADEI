@@ -32,12 +32,16 @@ return
 
 			"Google" => array ( 
 				"enabled" => true,
-				"keys"    => array ( "id" => "725831678756-7de3svhemi14vpn1fluthj4aqdc1o09b.apps.googleusercontent.com", "secret" => "AeS5QUApu5QhduskYqPOoVtt" )
+				"keys"    => array ( "id" => "725831678756-7de3svhemi14vpn1fluthj4aqdc1o09b.apps.googleusercontent.com", "secret" => "AeS5QUApu5QhduskYqPOoVtt"),
+				"scope" => "https://www.googleapis.com/auth/userinfo.profile " 
 			),
 
-			"Facebook" => array ( 
+			"Facebook" => array ( //safari bug. reinstall Rapport
 				"enabled" => true,
-				"keys"    => array ( "id" => "1462252387352256", "secret" => "22133dc1d682480257132015b974d50e" )
+				"keys"    => array ( "id" => "1462252387352256", "secret" => "22133dc1d682480257132015b974d50e" ),
+				"scope"   => "user_about_me",
+				//"display" => "touch"
+				"display" => "popup"
 			),
 
 			"Twitter" => array ( 

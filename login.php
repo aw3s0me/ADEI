@@ -47,7 +47,12 @@
             $params["openid_identifier"] = @ $_REQUEST["openid_identifier"];
         }
 
+
         if (isset($_REQUEST["redirect_to_idp"])) {
+            if ($hybridauth->isConnectedWith("twitter")) {
+                echo "Already connected";
+            }
+
             $adapter = $hybridauth->authenticate($provider, $params);
             $user = $adapter->getUserProfile();
             $_SESSION['access_token'] = $adapter->getAccessToken()[0];

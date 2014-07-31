@@ -115,7 +115,7 @@
             throw new ADEIException(translate("Error with download xslt list. Target: $target \n Error: $ex")); 
         }
 
-        //echo $download_xslt;
+        echo $download_xml_list;
         //echo '<h1>'.$ADEI_SETUP.'</h1>';
         echo "<div class='adm_downloads' >";
         echo $ADEI->TransformXML($download_xslt, $download_xml_list, true);

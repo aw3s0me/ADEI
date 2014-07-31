@@ -795,9 +795,9 @@ font-size:10pt;
 .previewimg {
   background-image:url('images/box.png');
   background-repeat:no-repeat;
-  margin-top:5px;
-  clear: left;
-  float: left;
+  //margin-top:5px;
+  //clear: left;
+  //float: left;
   width:19px;
   height:19px;
 }
@@ -805,9 +805,9 @@ font-size:10pt;
 .infoimg {
   background-image:url('images/icon_info.png');
   background-repeat:no-repeat;
-  margin-top:5px;
-  float: right;
-  clear: right;
+  //margin-top:5px;
+  //float: right;
+  //clear: right;
   width:19px;
   height:19px;
 }
@@ -815,7 +815,7 @@ font-size:10pt;
 .deleteimg {
   background-image:url('images/remove.png');
   background-repeat:no-repeat;
-  margin-top:5px;
+  //margin-top:5px;
   width:19px;
   height:19px;
 /*  float:right;
@@ -825,7 +825,7 @@ font-size:10pt;
 .downloadimg {
   background-image:url('images/icon_download.png');
   background-repeat:no-repeat;
-  margin-top:5px;
+  //margin-top:5px;
   height:19px;
   width:19px;
 /*  float:left;
@@ -856,6 +856,8 @@ font-size:10pt;
   margin-bottom:5px;
 }
 
+
+
 .dl_user {
   width:90%;
 /*  float:right;*/
@@ -863,14 +865,34 @@ font-size:10pt;
 
 .buttoncontainer {
   /*position: static;*/
-  width:99px;
-  height:26px;
+  //width:99px;
+  //height:26px;
+}
+
+.bg_cell {
+  text-align: left !important;
+  word-break: break-all !important;
+  word-wrap: normal;
+}
+
+.btnimg {
+  margin: 0 auto !important;
+  margin-top: 5px !important;
 }
 
 .buttoncontainer table tr td {
     margin: 0;
     padding: 0;
     border: 0;
+    //overflow: scroll;
+    text-overflow: ellipsis;
+    //white-space: nowrap;
+    max-width: 110px;
+}
+
+.buttoncontainer tr td:last-child{
+    width:1%;
+    //white-space:nowrap;
 }
 
 /*
